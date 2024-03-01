@@ -1,38 +1,3 @@
-// import * as React from 'react';
-// export interface BLE {
-//   connect: () => void;
-//   isConnected: boolean;
-//   data: string[];
-// }
-
-// export const useBle = (): BLE => {
-//   const [isConnected, setIsConnected] = React.useState(false);
-//   const [data, setData] = React.useState<string[]>([]);
-
-//   const connect = async () => {
-//     const device = await navigator.bluetooth.requestDevice({
-//       filters: [{ services: ['6e400001-b5a3-f393-e0a9-e50e24dcca9e'] }],
-//     });
-//     const server = await device.gatt?.connect();
-
-//     if (!server) {
-//       return;
-//     }
-
-//     const service = await server.getPrimaryService('6e400001-b5a3-f393-e0a9-e50e24dcca9e');
-
-//     const serviceData = await service.getCharacteristic(
-//       '6e400001-b5a3-f393-e0a9-e50e24dcca9e', // Philips Hue Light On/Off Toggle
-//     );
-
-//     setData([serviceData.uuid]);
-
-//     setIsConnected(true);
-//   };
-
-//   return { connect, isConnected, data };
-// };
-
 import * as React from 'react';
 
 export interface BLE {
