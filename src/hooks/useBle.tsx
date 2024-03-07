@@ -46,6 +46,8 @@ export const useBle = (): BLE => {
     } catch (error) {
       console.error('Bluetooth connection error:', error);
       setIsConnected(false);
+    } finally {
+      window.location.href = '/doenstexist';
     }
   };
 
