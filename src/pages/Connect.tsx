@@ -4,20 +4,16 @@ import '../css/connect.css';
 
 export default function Connect() {
   const { connect } = useBle();
+
+  const handleConnect = async () => {
+    connect();
+  };
+
   return (
     <div className='connect-wrapper'>
-      <button className='connect-button' onClick={connect}>
+      <button className='connect-button' onClick={handleConnect}>
         Connect To Smart Sole
       </button>
     </div>
-    // <div
-    //   style={{
-    //     height: '100vh',
-    //     display: 'flex',
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    //   }}>
-    //   {isConnected ? <h1>Connected {data}</h1> : <button onClick={connect}>Connect</button>}
-    // </div>
   );
 }

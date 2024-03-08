@@ -1,17 +1,26 @@
 import * as React from 'react';
+import { useState, PropsWithChildren, createContext, useContext } from 'react';
 
-export interface BLE {
+type BLE = {
   connect: () => void;
   disconnect: () => void;
   isConnected: boolean;
   data: string[];
-}
+};
 
-export const useBle = (): BLE => {
-  const [isConnected, setIsConnected] = React.useState(false);
-  const [data, setData] = React.useState<string[]>([]);
-  const [characteristic, setCharacteristic] =
-    React.useState<BluetoothRemoteGATTCharacteristic | null>(null);
+export const BLEContext = createContext<BLE>({
+  connect: () => {},
+  disconnect: () => {},
+  isConnected: false,
+  data: [],
+});
+
+const BLEProvider = ({ children }: PropsWithChildren) => {
+  const [isConnected, setIsConnected] = useState(false);
+  const [data, setData] = useState<string[]>([]);
+  const [characteristic, setCharacteristic] = useState<BluetoothRemoteGATTCharacteristic | null>(
+    null,
+  );
 
   const connect = async () => {
     console.log('Requesting Bluetooth Device...');
@@ -47,7 +56,7 @@ export const useBle = (): BLE => {
       console.error('Bluetooth connection error:', error);
       setIsConnected(false);
     } finally {
-      window.location.href = '/doenstexist';
+      setIsConnected(true);
     }
   };
 
@@ -74,5 +83,15 @@ export const useBle = (): BLE => {
     }
   };
 
-  return { connect, disconnect, isConnected, data };
+  return (
+    <BLEContext.Provider value={{ connect, disconnect, isConnected, data }}>
+      {children}
+    </BLEContext.Provider>
+  );
+};
+
+export default BLEProvider;
+
+export const useBle = (): BLE => {
+  return useContext(BLEContext);
 };

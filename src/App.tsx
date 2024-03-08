@@ -3,16 +3,19 @@ import './App.css';
 import Connect from './pages/Connect';
 import Home from './pages/Home';
 import { useBle } from './hooks/useBle';
-import { HashRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
   const { isConnected } = useBle();
+  console.log('isConnected:', isConnected);
+
   return (
     <Router>
       <Routes>
-        <Route path='/connect' element={<Home />} />
-        <Route path='/home' element={<Home />} />
-        <Route index element={isConnected ? <Home /> : <Connect />} />
+        <Route path='/' element={isConnected ? <Home /> : <Connect />} />
+        <Route path='connect' element={<Home />} />
+        <Route path='home' element={<Home />} />
+        <Route path='/*' element={<div>404</div>} />
       </Routes>
     </Router>
   );
