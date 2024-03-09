@@ -11,6 +11,11 @@ export default function Connect() {
 
   return (
     <div className='connect-wrapper'>
+      <div className='header-div'>
+        <h1 className='header-text'>
+          <span>Welcome to Smart Sole</span>
+        </h1>
+      </div>
       <button className='connect-button' onClick={handleConnect}>
         Connect To Smart Sole
       </button>
