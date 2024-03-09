@@ -7,12 +7,10 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
   const { isConnected } = useBle();
-  console.log('isConnected:', isConnected);
-
   return (
     <Router>
       <Routes>
-        <Route path='/' element={isConnected ? <Home /> : <Connect />} />
+        <Route index element={isConnected ? <Home /> : <Connect />} />
         <Route path='connect' element={<Home />} />
         <Route path='home' element={<Home />} />
         <Route path='/*' element={<div>404</div>} />
