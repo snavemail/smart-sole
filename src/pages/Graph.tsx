@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import GraphComponent from '../components/GraphSVG';
+import '../css/graph.css';
 
 export default function Graph() {
-  const [graph, setGraph] = useState(null);
-
-  useEffect(() => {
-    const generateGraph = async () => {
-      const res = await fetch('https://localhost:8080/getGraph');
-      const data = await res.json();
-      setGraph(data);
-    };
-    generateGraph();
-  }, []);
-
-  return <div>{graph}</div>;
+  return (
+    <div className='graph-wrapper'>
+      <div className='graph-header-div'>
+        <h1 className='graph-header-text'>
+          <span>Your Results</span>
+        </h1>
+      </div>
+      <GraphComponent />
+      <div className='next-div'>
+        <a href='/loading'>Next</a>
+      </div>
+    </div>
+  );
 }
