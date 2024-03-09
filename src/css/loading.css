@@ -20,80 +20,80 @@
 
 @keyframes left-foot-animation {
   0% {
-    transform: translate(0, 0) rotate(0deg);
+    transform: translate(-25.8px, -3.4px) rotate(15deg);
   }
   4.17% {
-    transform: translate(3.4px, -25.8px) rotate(-15deg);
+    transform: translate(25.8px, -3.4px) rotate(-15deg);
   }
   8.33% {
-    transform: translate(3.4px, -25.8px) rotate(-15deg);
+    transform: translate(25.8px, -3.4px) rotate(-15deg);
   }
   12.5% {
-    transform: translate(70.7px, -70.7px) rotate(-45deg);
+    transform: translate(70.7px, -29.3px) rotate(-45deg);
   }
   16.67% {
-    transform: translate(70.7px, -70.7px) rotate(-45deg);
+    transform: translate(70.7px, -29.3px) rotate(-45deg);
   }
   20.83% {
-    transform: translate(74.1px, -96.6px) rotate(-75deg);
+    transform: translate(96.6px, -74.1px) rotate(-75deg);
   }
   25% {
-    transform: translate(74.1px, -96.6px) rotate(-75deg);
+    transform: translate(96.6px, -74.1px) rotate(-75deg);
   }
-  /* 29.17% {
-    transform: translate(-96.6px, -25.8px) rotate(-105deg);
+  29.17% {
+    transform: translate(96.6px, -125.9px) rotate(-105deg);
   }
   33.33% {
-    transform: translate(86px, -150px) rotate(-105deg);
+    transform: translate(96.6px, -125.9px) rotate(-105deg);
   }
   37.5% {
-    transform: translate(50px, -186px) rotate(-135deg);
+    transform: translate(70.7px, -170.7px) rotate(-135deg);
   }
   41.67% {
-    transform: translate(50px, -186px) rotate(-135deg);
+    transform: translate(70.7px, -170.7px) rotate(-135deg);
   }
   45.83% {
-    transform: translate(0, -200px) rotate(-165deg);
+    transform: translate(25.8px, -196.6px) rotate(-165deg);
   }
   50% {
-    transform: translate(0, -200px) rotate(-165deg);
+    transform: translate(25.8px, -196.6px) rotate(-165deg);
   }
   54.17% {
-    transform: translate(-50px, -186px) rotate(-195deg);
+    transform: translate(-25.8px, -196.6px) rotate(-195deg);
   }
   58.33% {
-    transform: translate(-50px, -186px) rotate(-195deg);
+    transform: translate(-25.8px, -196.6px) rotate(-195deg);
   }
   62.5% {
-    transform: translate(-86px, -150px) rotate(-225deg);
+    transform: translate(-70.7px, -170.7px) rotate(-225deg);
   }
   66.67% {
-    transform: translate(-86px, -150px) rotate(-225deg);
+    transform: translate(-70.7px, -170.7px) rotate(-225deg);
   }
   70.83% {
-    transform: translate(-100px, -100px) rotate(-255deg);
+    transform: translate(-96.6px, -125.9px) rotate(-255deg);
   }
   75% {
-    transform: translate(-100px, -100px) rotate(-255deg);
+    transform: translate(-96.6px, -125.9px) rotate(-255deg);
   }
   79.17% {
-    transform: translate(-86px, -50px) rotate(-285deg);
+    transform: translate(-96.6px, -74.1px) rotate(-285deg);
   }
   83.33% {
-    transform: translate(-86px, -50px) rotate(-285deg);
+    transform: translate(-96.6px, -74.1px) rotate(-285deg);
   }
   87.5% {
-    transform: translate(-50px, -14px) rotate(-315deg);
+    transform: translate(-70.7px, -29.3px) rotate(-315deg);
   }
   91.67% {
-    transform: translate(-50px, -14px) rotate(-315deg);
+    transform: translate(-70.7px, -29.3px) rotate(-315deg);
   }
   95.83% {
-    transform: translate(0, 0) rotate(-345deg);
+    transform: translate(-25.8px, -3.4px) rotate(-345deg);
   }
   100% {
-    transform: translate(0, 0) rotate(-345deg); */
-  /* } */
+    transform: translate(-25.8px, -3.4px) rotate(-345deg);
+  }
 }
 
 @keyframes right-foot-animation {
@@ -107,67 +107,67 @@
     transform: translate(75px, -21px) rotate(-30deg);
   }
   12.5% {
-    transform: translate(86px, -50px) rotate(-60deg);
+    transform: translate(75px, -21px) rotate(-30deg);
   }
   16.67% {
-    transform: translate(86px, -50px) rotate(-60deg);
+    transform: translate(129px, -75px) rotate(-60deg);
   }
   20.83% {
-    transform: translate(100px, -100px) rotate(-90deg);
+    transform: translate(129px, -75px) rotate(-60deg);
   }
   25% {
-    transform: translate(100px, -100px) rotate(-90deg);
+    transform: translate(150px, -150px) rotate(-90deg);
   }
   29.17% {
-    transform: translate(86px, -150px) rotate(-120deg);
+    transform: translate(150px, -150px) rotate(-90deg);
   }
   33.33% {
-    transform: translate(86px, -150px) rotate(-120deg);
+    transform: translate(129px, -225px) rotate(-120deg);
   }
   37.5% {
-    transform: translate(50px, -186px) rotate(-150deg);
+    transform: translate(129px, -225px) rotate(-120deg);
   }
   41.67% {
-    transform: translate(50px, -186px) rotate(-150deg);
+    transform: translate(75px, -280px) rotate(-150deg);
   }
   45.83% {
-    transform: translate(0, -200px) rotate(-180deg);
+    transform: translate(75px, -280px) rotate(-150deg);
   }
   50% {
-    transform: translate(0, -200px) rotate(-180deg);
+    transform: translate(0, -300px) rotate(-180deg);
   }
   54.17% {
-    transform: translate(-50px, -186px) rotate(-210deg);
+    transform: translate(0, -300px) rotate(-180deg);
   }
   58.33% {
-    transform: translate(-50px, -186px) rotate(-210deg);
+    transform: translate(-75px, -280px) rotate(-210deg);
   }
   62.5% {
-    transform: translate(-86px, -150px) rotate(-240deg);
+    transform: translate(-75px, -280px) rotate(-210deg);
   }
   66.67% {
-    transform: translate(-86px, -150px) rotate(-240deg);
+    transform: translate(-129px, -225px) rotate(-240deg);
   }
   70.83% {
-    transform: translate(-100px, -100px) rotate(-270deg);
+    transform: translate(-129px, -225px) rotate(-240deg);
   }
   75% {
-    transform: translate(-100px, -100px) rotate(-270deg);
+    transform: translate(-150px, -150px) rotate(-270deg);
   }
   79.17% {
-    transform: translate(-86px, -50px) rotate(-300deg);
+    transform: translate(-150px, -150px) rotate(-270deg);
   }
   83.33% {
-    transform: translate(-86px, -50px) rotate(-300deg);
+    transform: translate(-129px, -75px) rotate(-300deg);
   }
   87.5% {
-    transform: translate(-50px, -14px) rotate(-330deg);
+    transform: translate(-129px, -75px) rotate(-300deg);
   }
   91.67% {
-    transform: translate(-50px, -14px) rotate(-330deg);
+    transform: translate(-75px, -21px) rotate(-330deg);
   }
   95.83% {
-    transform: translate(0, 0) rotate(-360deg);
+    transform: translate(-75px, -21px) rotate(-330deg);
   }
   100% {
     transform: translate(0, 0) rotate(-360deg);
