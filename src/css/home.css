@@ -1,0 +1,74 @@
+.home-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: calc(100vh - 80px);
+  background-color: var(--background);
+  padding: 40px;
+}
+
+.header-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 25px;
+}
+
+.header-text {
+  margin: 0;
+  font-size: var(--header-size);
+  color: var(--foreground);
+  font-family: var(--font-family);
+  text-align: center;
+}
+
+.connect-text {
+  margin: 0;
+  font-size: var(--subheader-size);
+  color: var(--foreground);
+  font-family: var(--font-family);
+  text-align: center;
+}
+
+/* Table for sensor data */
+
+.sensor-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 50px 0;
+}
+
+.sensor-table {
+  margin-bottom: 10px;
+  th,
+  td {
+    text-align: center;
+    padding: 3px 10px;
+  }
+}
+
+/* Foot svg */
+.foot-div {
+  position: relative;
+}
+
+.sensor-circle-table {
+  border-radius: 50%;
+  transition: all 0.5s ease-in-out;
+}
+
+.sensor-circle {
+  position: absolute;
+  border-radius: 50%;
+  transition: all 0.5s ease-in-out;
+}
+
+.sensor-1 {
+  top: 0;
+  left: 0;
+  background-color: var(--sensor-1);
+}
