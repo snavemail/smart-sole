@@ -69,10 +69,8 @@ export default function Home() {
         ))}
         <div className='sensor-container timestamp'>{leftSensorData.timestamp}</div>
       </div>
-      <div className='connect-div'>
-        <h2 className='connect-text'>
-          <span>Collecting data</span>
-        </h2>
+      <div className='next-div'>
+        <a href='/loading'>Next</a>
       </div>
     </div>
   );
