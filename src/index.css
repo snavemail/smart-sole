@@ -3,6 +3,14 @@
   --foreground: #1f1f1f;
   --button-bg: #686666;
   --button-fg: #f5f5f5;
+  /* Give me a technical font */
+  --font-family: 'Roboto Mono', monospace;
+
+  /* Font sizes */
+  --header-size: 2rem;
+  --subheader-size: 1.5rem;
+  --text-size: 1rem;
+  --button-size: 1.2rem;
 }
 
 body {
