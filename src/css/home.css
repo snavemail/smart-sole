@@ -13,7 +13,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-bottom: 25px;
+  margin: 0;
 }
 
 .header-text {
@@ -141,4 +141,21 @@
 
 .sensor-right-5 {
   right: 22%;
+}
+
+.next-div a {
+  color: var(--foreground);
+  font-family: var(--font-family);
+  font-size: var(--subheader-size);
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  font-weight: 700;
+  margin-top: 10px;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+.next-div a:hover {
+  color: var(--highlight);
+  background-color: rgb(163, 163, 163);
 }
