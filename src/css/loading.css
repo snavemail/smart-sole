@@ -1,0 +1,175 @@
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.loading-screen > .foot-div > svg {
+  transform: rotate(90deg);
+}
+
+.loading-screen > .left-foot {
+  animation: left-foot-animation 5s infinite linear;
+}
+
+.loading-screen > .right-foot {
+  animation: right-foot-animation 5s infinite linear;
+}
+
+@keyframes left-foot-animation {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  4.17% {
+    transform: translate(3.4px, -25.8px) rotate(-15deg);
+  }
+  8.33% {
+    transform: translate(3.4px, -25.8px) rotate(-15deg);
+  }
+  12.5% {
+    transform: translate(70.7px, -70.7px) rotate(-45deg);
+  }
+  16.67% {
+    transform: translate(70.7px, -70.7px) rotate(-45deg);
+  }
+  20.83% {
+    transform: translate(74.1px, -96.6px) rotate(-75deg);
+  }
+  25% {
+    transform: translate(74.1px, -96.6px) rotate(-75deg);
+  }
+  /* 29.17% {
+    transform: translate(-96.6px, -25.8px) rotate(-105deg);
+  }
+  33.33% {
+    transform: translate(86px, -150px) rotate(-105deg);
+  }
+  37.5% {
+    transform: translate(50px, -186px) rotate(-135deg);
+  }
+  41.67% {
+    transform: translate(50px, -186px) rotate(-135deg);
+  }
+  45.83% {
+    transform: translate(0, -200px) rotate(-165deg);
+  }
+  50% {
+    transform: translate(0, -200px) rotate(-165deg);
+  }
+  54.17% {
+    transform: translate(-50px, -186px) rotate(-195deg);
+  }
+  58.33% {
+    transform: translate(-50px, -186px) rotate(-195deg);
+  }
+  62.5% {
+    transform: translate(-86px, -150px) rotate(-225deg);
+  }
+  66.67% {
+    transform: translate(-86px, -150px) rotate(-225deg);
+  }
+  70.83% {
+    transform: translate(-100px, -100px) rotate(-255deg);
+  }
+  75% {
+    transform: translate(-100px, -100px) rotate(-255deg);
+  }
+  79.17% {
+    transform: translate(-86px, -50px) rotate(-285deg);
+  }
+  83.33% {
+    transform: translate(-86px, -50px) rotate(-285deg);
+  }
+  87.5% {
+    transform: translate(-50px, -14px) rotate(-315deg);
+  }
+  91.67% {
+    transform: translate(-50px, -14px) rotate(-315deg);
+  }
+  95.83% {
+    transform: translate(0, 0) rotate(-345deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(-345deg); */
+  /* } */
+}
+
+@keyframes right-foot-animation {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  4.17% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  8.33% {
+    transform: translate(75px, -21px) rotate(-30deg);
+  }
+  12.5% {
+    transform: translate(86px, -50px) rotate(-60deg);
+  }
+  16.67% {
+    transform: translate(86px, -50px) rotate(-60deg);
+  }
+  20.83% {
+    transform: translate(100px, -100px) rotate(-90deg);
+  }
+  25% {
+    transform: translate(100px, -100px) rotate(-90deg);
+  }
+  29.17% {
+    transform: translate(86px, -150px) rotate(-120deg);
+  }
+  33.33% {
+    transform: translate(86px, -150px) rotate(-120deg);
+  }
+  37.5% {
+    transform: translate(50px, -186px) rotate(-150deg);
+  }
+  41.67% {
+    transform: translate(50px, -186px) rotate(-150deg);
+  }
+  45.83% {
+    transform: translate(0, -200px) rotate(-180deg);
+  }
+  50% {
+    transform: translate(0, -200px) rotate(-180deg);
+  }
+  54.17% {
+    transform: translate(-50px, -186px) rotate(-210deg);
+  }
+  58.33% {
+    transform: translate(-50px, -186px) rotate(-210deg);
+  }
+  62.5% {
+    transform: translate(-86px, -150px) rotate(-240deg);
+  }
+  66.67% {
+    transform: translate(-86px, -150px) rotate(-240deg);
+  }
+  70.83% {
+    transform: translate(-100px, -100px) rotate(-270deg);
+  }
+  75% {
+    transform: translate(-100px, -100px) rotate(-270deg);
+  }
+  79.17% {
+    transform: translate(-86px, -50px) rotate(-300deg);
+  }
+  83.33% {
+    transform: translate(-86px, -50px) rotate(-300deg);
+  }
+  87.5% {
+    transform: translate(-50px, -14px) rotate(-330deg);
+  }
+  91.67% {
+    transform: translate(-50px, -14px) rotate(-330deg);
+  }
+  95.83% {
+    transform: translate(0, 0) rotate(-360deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(-360deg);
+  }
+}
