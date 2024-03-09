@@ -11,8 +11,8 @@ export default function Connect() {
 
   return (
     <div className='connect-wrapper'>
-      <div className='header-div'>
-        <h1 className='header-text'>
+      <div className='connect-header-div'>
+        <h1 className='connect-header-text'>
           <span>Welcome to Smart Sole</span>
         </h1>
       </div>
