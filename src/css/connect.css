@@ -2,8 +2,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   height: 100vh;
   background-color: var(--background);
+  padding: 0 40px;
 }
 
 .connect-button {
@@ -12,11 +14,28 @@
   border-radius: 5px;
   background-color: var(--button-bg);
   color: var(--button-fg);
-  font-size: 1.2rem;
+  font-family: var(--font-family);
+  font-size: var(--button-size);
   cursor: pointer;
   transition: background-color 0.3s;
 
   &:hover {
     background-color: #5f5f5f;
   }
+}
+
+.header-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 25px;
+}
+
+.header-text {
+  margin: 0;
+  font-size: var(--header-size);
+  color: var(--foreground);
+  font-family: var(--font-family);
+  text-align: center;
 }
