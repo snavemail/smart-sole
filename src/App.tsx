@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import { useBle } from './hooks/useBle';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Loading from './pages/Loading';
+import Graph from './pages/Graph';
 
 function App() {
   const { isConnected } = useBle();
@@ -15,6 +16,7 @@ function App() {
         <Route path='connect' element={<Home />} />
         <Route path='home' element={<Home />} />
         <Route path='loading' element={<Loading />} />
+        <Route path='graph' element={<Graph />} />
         <Route path='/*' element={<div>404</div>} />
       </Routes>
     </Router>
