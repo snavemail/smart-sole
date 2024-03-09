@@ -24,7 +24,7 @@
   }
 }
 
-.header-div {
+.connect-header-div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,7 +32,7 @@
   margin-bottom: 25px;
 }
 
-.header-text {
+.connect-header-text {
   margin: 0;
   font-size: var(--header-size);
   color: var(--foreground);

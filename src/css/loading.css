@@ -11,11 +11,15 @@
 }
 
 .loading-screen > .left-foot {
-  animation: left-foot-animation 5s infinite linear;
+  animation: left-foot-animation infinite linear;
 }
 
 .loading-screen > .right-foot {
-  animation: right-foot-animation 5s infinite linear;
+  animation: right-foot-animation infinite linear;
+}
+
+.loading-screen > .foot-div {
+  animation-duration: 10s;
 }
 
 @keyframes left-foot-animation {
@@ -172,4 +176,12 @@
   100% {
     transform: translate(0, 0) rotate(-360deg);
   }
+}
+
+/* Loading text */
+.loading-text {
+  font-size: var(--header-size);
+  color: var(--foreground);
+  font-family: var(--font-family);
+  text-align: center;
 }
