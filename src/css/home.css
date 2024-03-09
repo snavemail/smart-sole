@@ -32,43 +32,113 @@
   text-align: center;
 }
 
-/* Table for sensor data */
-
-.sensor-div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin: 50px 0;
-}
-
-.sensor-table {
-  margin-bottom: 10px;
-  th,
-  td {
-    text-align: center;
-    padding: 3px 10px;
-  }
-}
-
 /* Foot svg */
 .foot-div {
   position: relative;
 }
 
-.sensor-circle-table {
-  border-radius: 50%;
-  transition: all 0.5s ease-in-out;
+.sensor-container {
+  width: 40px;
+  height: 54px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  font-size: 10px;
+}
+
+.timestamp {
+  width: fit-content;
+  font-size: 20px;
+  color: var(--foreground);
+  font-family: var(--font-family);
+  text-align: center;
+  top: 55%;
+  left: calc(50% - 60px);
 }
 
 .sensor-circle {
-  position: absolute;
+  display: inline-flex;
   border-radius: 50%;
   transition: all 0.5s ease-in-out;
 }
 
-.sensor-1 {
-  top: 0;
-  left: 0;
-  background-color: var(--sensor-1);
+.sensor-left-0,
+.sensor-right-0 {
+  top: 37.5%;
+}
+
+.sensor-left-1,
+.sensor-right-1 {
+  top: 33%;
+}
+
+.sensor-left-2,
+.sensor-right-2 {
+  top: 31%;
+}
+
+.sensor-left-3,
+.sensor-right-3 {
+  top: 55%;
+}
+
+.sensor-left-4,
+.sensor-right-4 {
+  top: 76%;
+}
+
+.sensor-left-5,
+.sensor-right-5 {
+  top: 74%;
+}
+
+.sensor-left-0 {
+  left: 10%;
+}
+
+.sensor-left-1 {
+  left: 17.2%;
+}
+
+.sensor-left-2 {
+  left: 26%;
+}
+
+.sensor-left-3 {
+  left: 17%;
+}
+
+.sensor-left-4 {
+  left: 14%;
+}
+
+.sensor-left-5 {
+  left: 22%;
+}
+
+.sensor-right-0 {
+  right: 10%;
+}
+
+.sensor-right-1 {
+  right: 17.2%;
+}
+
+.sensor-right-2 {
+  right: 26%;
+}
+
+.sensor-right-3 {
+  right: 17%;
+}
+
+.sensor-right-4 {
+  right: 14%;
+}
+
+.sensor-right-5 {
+  right: 22%;
 }
