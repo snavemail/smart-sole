@@ -1,23 +1,24 @@
 import * as React from 'react';
 import { useState, PropsWithChildren, createContext, useContext } from 'react';
+import { SensorData } from '../types';
 
 type BLE = {
   connect: () => void;
   disconnect: () => void;
   isConnected: boolean;
-  data: string[];
+  data: SensorData;
 };
 
 export const BLEContext = createContext<BLE>({
   connect: () => {},
   disconnect: () => {},
   isConnected: false,
-  data: [],
+  data: { timestamp: 0, sensorValues: [] },
 });
 
 const BLEProvider = ({ children }: PropsWithChildren) => {
   const [isConnected, setIsConnected] = useState(false);
-  const [data, setData] = useState<string[]>([]);
+  const [data, setData] = useState<SensorData>({ timestamp: 0, sensorValues: [] });
   const [characteristic, setCharacteristic] = useState<BluetoothRemoteGATTCharacteristic | null>(
     null,
   );
@@ -76,8 +77,13 @@ const BLEProvider = ({ children }: PropsWithChildren) => {
     if (value) {
       const decoder = new TextDecoder('utf-8');
       const text = decoder.decode(value);
-      const newData = [...data, text];
-      setData(newData.slice(Math.max(newData.length - 14, 0)));
+
+      const listOfValues = text.split(';').map(value => parseInt(value, 16));
+      const sensorData: SensorData = {
+        timestamp: listOfValues[0],
+        sensorValues: listOfValues.slice(1),
+      };
+      setData(sensorData);
     } else {
       console.error('No value in characteristic');
     }
