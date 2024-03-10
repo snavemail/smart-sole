@@ -6,32 +6,18 @@ import { SensorData } from '../types';
 
 export default function Home() {
   const [leftSensorData, setLeftSensorData] = useState<SensorData>({
-    timestamp:
-      new Date().getHours().toString() +
-      ':' +
-      new Date().getMinutes().toString() +
-      ':' +
-      new Date().getSeconds().toString() +
-      ':' +
-      new Date().getMilliseconds().toString(),
+    timestamp: new Date().getTime(),
     sensorValues: Array(6).fill(0),
   });
 
   const [rightSensorData, setRightSensorData] = useState<SensorData>({
-    timestamp: '0',
+    timestamp: 0,
     sensorValues: Array(6).fill(0),
   });
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const newTimestamp =
-        new Date().getHours().toString() +
-        ':' +
-        new Date().getMinutes().toString() +
-        ':' +
-        new Date().getSeconds().toString() +
-        ':' +
-        new Date().getMilliseconds().toString();
+      const newTimestamp = new Date().getTime();
 
       const newLeftSensorValues = leftSensorData.sensorValues.map(() => Math.random() * 1000);
 
