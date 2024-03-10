@@ -1,4 +1,4 @@
 export type SensorData = {
-  timestamp: string;
+  timestamp: number;
   sensorValues: number[];
 };
