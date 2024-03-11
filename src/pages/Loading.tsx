@@ -11,7 +11,6 @@ export default function Loading() {
   useEffect(() => {
     const interval = setInterval(() => {
       setLoadingText(getRandomString(loadingText, loadingStrings));
-      console.log('loadingText', loadingText);
     }, 2000);
     return () => clearInterval(interval);
   }, [loadingText]);
@@ -26,7 +25,7 @@ export default function Loading() {
       </div>
       <div className='loading-container'>
         <p className='loading-text'>
-          <span>{loadingText}</span>
+          <span>{loadingText}...</span>
         </p>
       </div>
       <div className='next-div'>

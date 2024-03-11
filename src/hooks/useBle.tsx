@@ -78,7 +78,10 @@ const BLEProvider = ({ children }: PropsWithChildren) => {
       const decoder = new TextDecoder('utf-8');
       const text = decoder.decode(value);
 
-      const listOfValues = text.split(';').map(value => parseInt(value, 16));
+      const listOfValues = text
+        .replace(';', '')
+        .split(':')
+        .map(value => parseInt(value, 16));
       const sensorData: SensorData = {
         timestamp: listOfValues[0],
         sensorValues: listOfValues.slice(1),

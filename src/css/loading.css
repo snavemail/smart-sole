@@ -19,7 +19,7 @@
 }
 
 .loading-screen > .foot-div {
-  animation-duration: 10s;
+  animation-duration: 7s;
 }
 
 @keyframes left-foot-animation {
@@ -33,7 +33,7 @@
     transform: translate(25.8px, -3.4px) rotate(-15deg);
   }
   12.5% {
-    transform: translate(70.7px, -29.3px) rotate(-45deg);
+    transform: translate(calc(sin(45deg) * 100px), -29.3px) rotate(-45deg);
   }
   16.67% {
     transform: translate(70.7px, -29.3px) rotate(-45deg);

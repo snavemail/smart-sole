@@ -55,8 +55,6 @@
   color: var(--foreground);
   font-family: var(--font-family);
   text-align: center;
-  top: 55%;
-  left: calc(50% - 60px);
 }
 
 .sensor-circle {
@@ -65,82 +63,58 @@
   transition: all 0.5s ease-in-out;
 }
 
-.sensor-left-0,
-.sensor-right-0 {
-  top: 37.5%;
+.sensor-left-5,
+.sensor-right-5 {
+  top: 33.5%;
 }
 
 .sensor-left-1,
 .sensor-right-1 {
+  top: 29%;
+}
+
+.sensor-left-0,
+.sensor-right-0 {
   top: 33%;
-}
-
-.sensor-left-2,
-.sensor-right-2 {
-  top: 31%;
-}
-
-.sensor-left-3,
-.sensor-right-3 {
-  top: 55%;
 }
 
 .sensor-left-4,
 .sensor-right-4 {
+  top: 55%;
+}
+
+.sensor-left-2,
+.sensor-right-2 {
   top: 76%;
 }
 
-.sensor-left-5,
-.sensor-right-5 {
-  top: 74%;
-}
-
-.sensor-left-0 {
-  left: 10%;
-}
-
-.sensor-left-1 {
-  left: 17.2%;
-}
-
-.sensor-left-2 {
-  left: 26%;
-}
-
-.sensor-left-3 {
-  left: 17%;
-}
-
-.sensor-left-4 {
-  left: 14%;
+.sensor-left-3,
+.sensor-right-3 {
+  top: 68%;
 }
 
 .sensor-left-5 {
-  left: 22%;
+  left: 20%;
 }
 
-.sensor-right-0 {
-  right: 10%;
+.sensor-left-1 {
+  left: 34.4%;
 }
 
-.sensor-right-1 {
-  right: 17.2%;
+.sensor-left-0 {
+  left: 52%;
 }
 
-.sensor-right-2 {
-  right: 26%;
+.sensor-left-4 {
+  left: 40%;
 }
 
-.sensor-right-3 {
-  right: 17%;
+.sensor-left-2 {
+  left: 36%;
 }
 
-.sensor-right-4 {
-  right: 14%;
-}
-
-.sensor-right-5 {
-  right: 22%;
+.sensor-left-3 {
+  left: 44%;
 }
 
 .next-div a {
