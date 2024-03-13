@@ -1,0 +1,26 @@
+.test-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+  width: 100%;
+}
+
+.test-name {
+  font-family: var(--font-family);
+  font-size: var(--large-text-size);
+}
+
+.top-row {
+  display: flex;
+  align-items: start;
+  width: 100%;
+}
+
+.bottom-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: var(--font-family);
+  font-size: var(--text-size);
+  width: 100%;
+}
