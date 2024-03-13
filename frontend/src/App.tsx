@@ -7,13 +7,16 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Loading from './pages/Loading';
 import Graph from './pages/Graph';
 import NoPage from './pages/NoPage';
+import Admin from './pages/Admin';
+import User from './pages/User';
 
 function App() {
   const { isConnected } = useBle();
   return (
     <Router>
       <Routes>
-        <Route index element={isConnected ? <Test /> : <Connect />} />
+        <Route index element={<Admin />} />
+        <Route path='users/:userId' element={<User />} />
         <Route path='connect' element={<Connect />} />
         <Route path='home' element={<Test />} />
         <Route path='loading' element={<Loading />} />
