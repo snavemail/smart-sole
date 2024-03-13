@@ -1,0 +1,31 @@
+.shoe-size-input {
+  width: 100%;
+}
+
+.shoe-size-input label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.unit-selector-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.select-unit {
+  width: 75px;
+}
+
+.select-size {
+  flex: 1;
+}
+
+select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
