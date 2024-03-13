@@ -19,11 +19,11 @@ class User(models.Model):
 
 
 class Profile(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, unique=True)
-    age = models.IntegerField(null=True)
+    user_id = models.OneToOneField(User, on_delete=models.CASCADE)
+    dob = models.DateField()
     weight = models.FloatField(null=True)
     height = models.FloatField(null=True)
-    shoe_size = models.FloatField()
+    shoe_size = models.FloatField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
