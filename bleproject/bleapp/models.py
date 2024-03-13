@@ -18,25 +18,22 @@ class User(models.Model):
 
 
 class Profile(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    age = models.IntegerField(blank=True, null=True)
-    weight = models.FloatField(blank=True, null=True)
-    height = models.FloatField(blank=True, null=True)
-    shoe_size = models.FloatField(blank=True, null=True)
-    foot_width = models.FloatField(blank=True, null=True)
-    foot_length = models.FloatField(blank=True, null=True)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, unique=True)
+    age = models.IntegerField()
+    weight = models.FloatField()
+    height = models.FloatField()
+    shoe_size = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.user_id + " " + self.age + " " + self.weight + " " + self.height
+        return self.user_id.first_name + " " + self.user_id.last_name
 
 
 class Test(models.Model):
     profile_id = models.ForeignKey(Profile, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
     duration = models.IntegerField()  # in milliseconds
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
