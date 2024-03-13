@@ -3,6 +3,8 @@ import Select from 'react-select';
 import { SearchUser, User } from '../types';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import '../css/admin.css';
+import AddUser from '../components/AddUser';
 
 function formatUsers(users: User[]) {
   return users.map(user => {
@@ -17,16 +19,13 @@ export default function Admin() {
   const [users, setUsers] = useState<SearchUser[]>([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const response = await axios.get('http://127.0.0.1:8000/api/users/');
-      return response.data;
-    };
-    const listUsers = fetchUsers();
+  const fetchUsers = async () => {
+    const response = await axios.get('http://127.0.0.1:8000/api/users/');
+    setUsers(formatUsers(response.data));
+  };
 
-    listUsers.then((data: User[]) => {
-      setUsers(formatUsers(data));
-    });
+  useEffect(() => {
+    fetchUsers();
   }, []);
 
   const handleChange = (selectedOption: SearchUser | null) => {
@@ -37,14 +36,24 @@ export default function Admin() {
     }
   };
 
+  const handleAddUser = () => {
+    fetchUsers();
+  };
+
   return (
     <div className='admin-wrapper'>
-      <div>
+      <div className='select-user'>
         <h1>
-          <span>Admin</span>
+          <span>Select User</span>
         </h1>
+        <Select className='selector' options={users} onChange={handleChange} />
       </div>
-      <Select className='selector' options={users} onChange={handleChange} />
+      <div className='add-user'>
+        <h1>
+          <span>Add User</span>
+        </h1>
+        <AddUser onAddUser={handleAddUser} />
+      </div>
     </div>
   );
 }
