@@ -3,6 +3,11 @@ from . import views
 
 urlpatterns = [
     path("users/", views.users, name="user-list-create"),
+    path(
+        "get-user-profile/<int:user_id>",
+        views.get_user_profile,
+        name="get-user-profile",
+    ),
     path("users/<int:pk>/", views.user_retrieve_update_destroy, name="user-detail"),
     path("profiles/", views.profiles, name="profile-list-create"),
     path(
@@ -11,6 +16,9 @@ urlpatterns = [
         name="profile-detail",
     ),
     path("tests/", views.tests, name="test-list-create"),
+    path(
+        "get-user-tests/<int:profile_id>", views.get_user_tests, name="get-user-tests"
+    ),
     path("tests/<int:pk>/", views.test_retrieve_update_destroy, name="test-detail"),
     path("steps/", views.steps, name="step-list-create"),
     path("steps/<int:pk>/", views.step_retrieve_update_destroy, name="step-detail"),
