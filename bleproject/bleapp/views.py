@@ -13,7 +13,6 @@ from rest_framework.renderers import JSONRenderer
 
 
 @api_view(["GET"])
-@renderer_classes([JSONRenderer])
 def user_list(request):
     users = User.objects.all()
     serializer = UserSerializer(users, many=True)
@@ -21,7 +20,6 @@ def user_list(request):
 
 
 @api_view(["GET", "POST"])
-@renderer_classes([JSONRenderer])
 def users(request):
     if request.method == "GET":
         users = User.objects.all()
@@ -33,6 +31,16 @@ def users(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["GET"])
+def get_user_profile(request, user_id):
+    try:
+        profile = Profile.objects.get(user_id=user_id)
+        serializer = ProfileSerializer(profile)
+        return Response(serializer.data)
+    except Profile.DoesNotExist:
+        return Response({"message": "Profile not found"}, status=404)
 
 
 @api_view(["GET", "PUT", "DELETE"])
@@ -124,6 +132,13 @@ def test_retrieve_update_destroy(request, pk):
     elif request.method == "DELETE":
         test.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(["GET"])
+def get_user_tests(request, profile_id):
+    tests = Test.objects.filter(profile_id=profile_id)
+    serializer = TestSerializer(tests, many=True)
+    return Response(serializer.data)
 
 
 @api_view(["GET", "POST"])
