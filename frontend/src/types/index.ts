@@ -17,4 +17,21 @@ export type SearchUser = {
 
 export type Test = {
   id: number;
+  name: string;
+  start_time: string;
+  duration: number;
+  created_at: string;
+  updated_at: string;
+  profile_id: number;
+};
+
+export type Profile = {
+  id: number;
+  age?: number;
+  weight?: number;
+  height?: number;
+  shoe_size: number;
+  created_at: string;
+  updated_at: string;
+  user_id: number;
 };
