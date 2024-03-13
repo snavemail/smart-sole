@@ -67,11 +67,11 @@ WSGI_APPLICATION = "bleproject.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("PG_DB", "postgres"),
-        "USER": os.environ.get("PG_USER", "postgres"),
-        "PASSWORD": os.environ.get("PG_PASSWORD", "1212potato"),
-        "HOST": os.environ.get("PG_HOST", "localhost"),
-        "PORT": os.environ.get("PG_PORT", "5432"),
+        "NAME": "postgres",
+        "USER": "postgres",
+        "PASSWORD": "postgres",
+        "HOST": "db",
+        "PORT": 5432,
     }
 }
 
