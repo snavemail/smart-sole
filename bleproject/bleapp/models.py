@@ -1,3 +1,4 @@
+from datetime import timezone
 from django.db import models
 from django.contrib.auth.hashers import make_password, check_password
 
@@ -19,9 +20,9 @@ class User(models.Model):
 
 class Profile(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, unique=True)
-    age = models.IntegerField()
-    weight = models.FloatField()
-    height = models.FloatField()
+    age = models.IntegerField(null=True)
+    weight = models.FloatField(null=True)
+    height = models.FloatField(null=True)
     shoe_size = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -32,14 +33,23 @@ class Profile(models.Model):
 
 class Test(models.Model):
     profile_id = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    start_time = models.DateTimeField()
+    name = models.CharField(max_length=100, default="")
+    start_time = models.DateTimeField(auto_now=True)
     duration = models.IntegerField()  # in milliseconds
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        unique_together = ["name", "profile_id"]
+
+    def save(self, *args, **kwargs):
+        if not self.name:
+            # Set default name to test + test_id + time
+            self.name = f"test_{self.id}_"
+        super().save(*args, **kwargs)
 
 
 class Step(models.Model):
