@@ -1,46 +1,41 @@
-# serializers.py
+from .models import User, Profile, Test, Step, SensorReading
 from rest_framework import serializers
-from .models import User, Test, SensorReadings
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
+        fields = ["email", "first_name", "last_name"]
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
         fields = [
-            "id",
-            "email",
-            "password",
-            "first_name",
-            "last_name",
-            "created_at",
-            "updated_at",
+            "user_id",
+            "shoe_size",
         ]
 
 
 class TestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Test
-        fields = [
-            "id",
-            "user_id",
-            "name",
-            "start_time",
-            "end_time",
-            "duration",
-            "created_at",
-            "updated_at",
-        ]
+        fields = ["profile_id", "name", "start_time", "duration"]
 
 
-class SensorReadingsSerializer(serializers.ModelSerializer):
+class StepSerializer(serializers.ModelSerializer):
     class Meta:
-        model = SensorReadings
-        fields = [
-            "id",
-            "test_id",
-            "sensor_id",
-            "timestamp",
-            "value",
-            "created_at",
-            "updated_at",
-        ]
+        model = Step
+        fields = ["test_id", "timestamp"]
+
+
+class SensorReadingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SensorReading
+        fields = ["step_id", "sensor_id", "value"]
+
+
+class AverageStepSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Step
+        fields = "__all__"
