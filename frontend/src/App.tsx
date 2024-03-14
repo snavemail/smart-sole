@@ -17,8 +17,9 @@ function App() {
       <Routes>
         <Route index element={<Admin />} />
         <Route path='users/:userId' element={<User />} />
+        <Route path='/test/:profileId/' element={isConnected ? <Test /> : <Connect />} />
         <Route path='connect' element={<Connect />} />
-        <Route path='home' element={<Test />} />
+        <Route path='test' element={<Test />} />
         <Route path='loading' element={<Loading />} />
         <Route path='graph' element={<Graph />} />
         <Route path='/*' element={<NoPage />} />
