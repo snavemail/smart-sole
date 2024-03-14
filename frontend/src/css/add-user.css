@@ -35,7 +35,8 @@ button {
 .fname-input,
 .lname-input,
 .submit-button,
-.dob-input {
+.dob-input,
+.gender-input {
   width: 90%;
 }
 
@@ -52,7 +53,8 @@ button {
   margin-bottom: 8px;
 }
 
-.name-row {
+.name-row,
+.birth-gender-row {
   display: flex;
   flex-direction: row;
   width: 90%;
@@ -61,7 +63,8 @@ button {
 
 .user-form input[type='email'],
 .user-form input[type='text'],
-.user-form input[type='date'] {
+.user-form input[type='date'],
+.user-form select {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -71,7 +74,8 @@ button {
 
 .user-form input[type='email']:focus,
 .user-form input[type='text']:focus,
-.user-form input[type='date']:focus {
+.user-form input[type='date']:focus,
+.user-form select:focus {
   outline: none;
   border-color: #007bff;
 }
