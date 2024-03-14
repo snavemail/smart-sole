@@ -5,33 +5,35 @@ import { SensorData } from '../types';
 type BLE = {
   connect: () => void;
   disconnect: () => void;
+  resetData: () => void;
   isConnected: boolean;
   data: SensorData;
+  allData: SensorData[];
 };
 
 export const BLEContext = createContext<BLE>({
   connect: () => {},
   disconnect: () => {},
+  resetData: () => {},
   isConnected: false,
   data: { timestamp: 0, sensorValues: [] },
+  allData: [],
 });
 
 const BLEProvider = ({ children }: PropsWithChildren) => {
   const [isConnected, setIsConnected] = useState(false);
   const [data, setData] = useState<SensorData>({ timestamp: 0, sensorValues: [] });
+  const [allData, setAllData] = useState<SensorData[]>([]);
   const [characteristic, setCharacteristic] = useState<BluetoothRemoteGATTCharacteristic | null>(
     null,
   );
 
   const connect = async () => {
-    console.log('Requesting Bluetooth Device...');
     try {
       const device = await navigator.bluetooth.requestDevice({
         filters: [{ services: ['6e400001-b5a3-f393-e0a9-e50e24dcca9e'] }],
       });
-      console.log('Device:', device);
       const server = await device.gatt?.connect();
-      console.log('Server:', server);
 
       if (!server) {
         console.error('No server');
@@ -39,11 +41,9 @@ const BLEProvider = ({ children }: PropsWithChildren) => {
       }
 
       const service = await server.getPrimaryService('6e400001-b5a3-f393-e0a9-e50e24dcca9e');
-      console.log('Service:', service);
       const characteristic = await service.getCharacteristic(
         '6e400001-b5a3-f393-e0a9-e50e24dcca9e',
       );
-      console.log('Characteristic:', characteristic);
 
       characteristic.addEventListener(
         'characteristicvaluechanged',
@@ -72,6 +72,11 @@ const BLEProvider = ({ children }: PropsWithChildren) => {
     setIsConnected(false);
   };
 
+  const resetData = () => {
+    setData({ timestamp: 0, sensorValues: [] });
+    setAllData([]);
+  };
+
   const handleCharacteristicValueChanged = (event: Event) => {
     const value = (event.target as BluetoothRemoteGATTCharacteristic).value;
     if (value) {
@@ -87,13 +92,14 @@ const BLEProvider = ({ children }: PropsWithChildren) => {
         sensorValues: listOfValues.slice(1),
       };
       setData(sensorData);
+      setAllData(prev => [...prev, sensorData]);
     } else {
       console.error('No value in characteristic');
     }
   };
 
   return (
-    <BLEContext.Provider value={{ connect, disconnect, isConnected, data }}>
+    <BLEContext.Provider value={{ connect, disconnect, resetData, isConnected, data, allData }}>
       {children}
     </BLEContext.Provider>
   );

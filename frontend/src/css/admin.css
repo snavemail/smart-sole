@@ -4,9 +4,26 @@
   width: 100%;
   padding: 40px;
 }
-
 .select-user,
 .add-user {
   width: 50%;
   padding: 0 20px;
+}
+
+@media screen and (max-width: 1080px) {
+  .admin-wrapper {
+    flex-direction: column;
+  }
+  .select-user,
+  .add-user {
+    width: 100%;
+  }
+
+  .add-user {
+    order: -1;
+  }
+
+  .select-user {
+    flex-grow: 1;
+  }
 }

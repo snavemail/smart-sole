@@ -22,17 +22,47 @@ export default function UserDetails() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const userResponse = await axios.get(`http://127.0.0.1:8000/api/users/${userId}`);
-        setUser(userResponse.data);
-        const profileResponse = await axios.get(
-          `http://127.0.0.1:8000/api/get-user-profile/${userResponse.data.id}`,
-        );
-        setProfile(profileResponse.data);
+        const userResponse = await fetch(`http://127.0.0.1:8000/api/users/${userId}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        if (!userResponse.ok) {
+          throw new Error('User not found');
+        }
+        const user = await userResponse.json();
+        setUser(user);
 
-        const testsResponse = await axios.get(
-          `http://127.0.0.1:8000/api/get-user-tests/${profileResponse.data.id}`,
+        const profileResponse = await fetch(
+          `http://127.0.0.1:8000/api/get-user-profile/${user.id}`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          },
         );
-        setUserTests(testsResponse.data);
+        if (!profileResponse.ok) {
+          throw new Error('Profile not found');
+        }
+        const profile = await profileResponse.json();
+        setProfile(profile);
+
+        const testsResponse = await fetch(
+          `http://127.0.0.1:8000/api/get-user-tests/${profile.id}`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          },
+        );
+        if (!testsResponse.ok) {
+          throw new Error('Tests not found');
+        }
+        const tests = await testsResponse.json();
+        setUserTests(tests);
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -48,7 +78,7 @@ export default function UserDetails() {
     return <Loading />;
   }
 
-  if (!user) {
+  if (!user || !profile) {
     return <div>No User</div>;
   }
 
@@ -61,8 +91,10 @@ export default function UserDetails() {
               {user.first_name} {user.last_name}
             </span>
           </h1>
+          <p>{profile.dob}</p>
+          {profile.shoe_size && <p>{profile.shoe_size}</p>}
         </div>
-        <div className='test-wrapper'>
+        <div className='tests-wrapper'>
           {userTests
             .sort((a, b) => new Date(b.start_time).getTime() - new Date(a.start_time).getTime())
             .map(test => (
@@ -74,7 +106,9 @@ export default function UserDetails() {
             ))}
         </div>
         <div className='button-container'>
-          <button className='start-test-button'>Start Test</button>
+          <a className='start-test-button' href={`/test/${profile.id}`}>
+            Start Test
+          </a>
         </div>
       </div>
       <div className='content'>

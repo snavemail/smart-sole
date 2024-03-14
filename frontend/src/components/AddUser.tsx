@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../css/add-user.css';
-import ShoeSizeInput from './ShoeSize';
+import { cmSizes, euSizes, ukSizes, usSizes } from '../constants';
+import '../css/shoe-size.css';
 
 export default function AddUser({ onAddUser }: { onAddUser: () => void }) {
   const [email, setEmail] = useState<string>('');
@@ -8,16 +9,18 @@ export default function AddUser({ onAddUser }: { onAddUser: () => void }) {
   const [lastName, setLastName] = useState<string>('');
   const [dob, setDob] = useState<string>('');
   const [error, setError] = useState<string>('');
+  const [selectedSizeUnit, setSelectedSizeUnit] = useState('US');
+  const [usSize, setUsSize] = useState('');
+  const [euSize, setEuSize] = useState('');
+  const [ukSize, setUkSize] = useState('');
+  const [cmSize, setCmSize] = useState('');
+
+  const handleSizeUnitChange = (event: { target: { value: React.SetStateAction<string> } }) => {
+    setSelectedSizeUnit(event.target.value);
+  };
 
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
-
-    const json = JSON.stringify({
-      email,
-      first_name: firstName,
-      last_name: lastName,
-    });
-    console.log(json);
 
     try {
       const userResponse = await fetch('http://127.0.0.1:8000/api/users/', {
@@ -32,14 +35,10 @@ export default function AddUser({ onAddUser }: { onAddUser: () => void }) {
         }),
       });
       if (!userResponse.ok) {
-        console.log(userResponse);
         throw new Error('Failed to add user');
       }
       const user = await userResponse.json();
       const userId = user.id;
-
-      console.log('userId', userId);
-      console.log('dob', dob);
 
       const profileResponse = await fetch(`http://127.0.0.1:8000/api/profiles/`, {
         method: 'POST',
@@ -49,6 +48,8 @@ export default function AddUser({ onAddUser }: { onAddUser: () => void }) {
         body: JSON.stringify({
           user_id: userId,
           dob: dob,
+          shoe_size:
+            selectedSizeUnit === 'US' ? usSize : selectedSizeUnit === 'EU' ? euSize : cmSize,
         }),
       });
       if (!profileResponse.ok) {
@@ -59,6 +60,10 @@ export default function AddUser({ onAddUser }: { onAddUser: () => void }) {
       setLastName('');
       setDob('');
       setError('');
+      setUsSize('');
+      setEuSize('');
+      setCmSize('');
+      setUkSize('');
       onAddUser();
       alert('User and profile created successfully');
     } catch (e) {
@@ -125,7 +130,64 @@ export default function AddUser({ onAddUser }: { onAddUser: () => void }) {
           />
         </div>
         <div className='name-row'>
-          <ShoeSizeInput />
+          <div className='shoe-size-input'>
+            <label htmlFor='shoe-size-unit'>Select Size Unit:</label>
+            <div className='unit-selector-wrapper'>
+              <div className='select-unit'>
+                <select
+                  id='shoe-size-unit'
+                  onChange={handleSizeUnitChange}
+                  value={selectedSizeUnit}>
+                  <option value='US'>US</option>
+                  <option value='EU'>EU</option>
+                  <option value='UK'>UK</option>
+                  <option value='CM'>CM</option>
+                </select>
+              </div>
+              <div className='select-size'>
+                {selectedSizeUnit === 'US' && (
+                  <select value={usSize} onChange={e => setUsSize(e.target.value)}>
+                    <option value=''>Select Size</option>
+                    {usSizes.map(size => (
+                      <option key={size} value={size}>
+                        {size}
+                      </option>
+                    ))}
+                  </select>
+                )}
+                {selectedSizeUnit === 'EU' && (
+                  <select value={euSize} onChange={e => setEuSize(e.target.value)}>
+                    <option value=''>Select Size</option>
+                    {euSizes.map(size => (
+                      <option key={size} value={size}>
+                        {size}
+                      </option>
+                    ))}
+                  </select>
+                )}
+                {selectedSizeUnit === 'UK' && (
+                  <select value={ukSize} onChange={e => setUkSize(e.target.value)}>
+                    <option value=''>Select Size</option>
+                    {ukSizes.map(size => (
+                      <option key={size} value={size}>
+                        {size}
+                      </option>
+                    ))}
+                  </select>
+                )}
+                {selectedSizeUnit === 'CM' && (
+                  <select value={cmSize} onChange={e => setCmSize(e.target.value)}>
+                    <option value=''>Select Size</option>
+                    {cmSizes.map(size => (
+                      <option key={size} value={size}>
+                        {size}
+                      </option>
+                    ))}
+                  </select>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
         <div className='submit-button'>
           <button type='submit'>Add User</button>

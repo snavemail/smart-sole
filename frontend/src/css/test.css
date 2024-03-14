@@ -1,9 +1,9 @@
-.home-wrapper {
+.test-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  min-height: calc(100vh - 80px);
+  min-height: calc(100vh);
   background-color: var(--background);
   padding: 40px;
 }

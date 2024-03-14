@@ -17,8 +17,6 @@ export const getCircleStyles = (value: number, maxValue: number) => {
     .map(({ color, position }) => `${color} ${position}%`)
     .join(', ');
 
-  console.log(gradientString);
-
   return {
     width: `${radius}px`,
     height: `${radius}px`,

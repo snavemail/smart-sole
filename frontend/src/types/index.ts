@@ -27,7 +27,7 @@ export type Test = {
 
 export type Profile = {
   id: number;
-  age?: number;
+  dob: string;
   weight?: number;
   height?: number;
   shoe_size: number;
