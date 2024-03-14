@@ -5,7 +5,7 @@ import { Profile, Test, User } from '../types';
 import Loading from './Loading';
 import '../css/user-details.css';
 import TestComponent from '../components/Test';
-import ProfileDetails from './Profile';
+import ProfileDetails from '../components/Profile';
 
 export default function UserDetails() {
   const { userId } = useParams();

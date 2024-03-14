@@ -9,7 +9,7 @@ import Graph from './pages/Graph';
 import NoPage from './pages/NoPage';
 import Admin from './pages/Admin';
 import User from './pages/User';
-import Profile from './pages/Profile';
+import Profile from './components/Profile';
 
 function App() {
   const { isConnected } = useBle();
