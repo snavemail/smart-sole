@@ -1,12 +1,13 @@
 .test-container {
   display: flex;
   flex-direction: column;
-  padding: 10px 0;
+  padding: 3px 0;
   width: 100%;
+  gap: 5px;
 }
 
 .test-name {
-  font-family: var(--font-family);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana;
   font-size: var(--large-text-size);
 }
 
@@ -14,6 +15,8 @@
   display: flex;
   align-items: start;
   width: 100%;
+  font-family: 'Arial', sans-serif;
+  font-size: var(--large-text-size);
 }
 
 .bottom-row {

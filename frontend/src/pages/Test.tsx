@@ -34,9 +34,7 @@ export default function Test() {
 
   const finishTest = async () => {
     try {
-      // Calculate duration
       const duration = allData[allData.length - 1].timestamp - allData[0].timestamp;
-      console.log('Duration:', duration);
 
       // Make a POST request to create the test
       const testResponse = await fetch('http://127.0.0.1:8000/api/tests/', {
@@ -56,47 +54,17 @@ export default function Test() {
 
       const testId = (await testResponse.json()).id;
 
-      // Iterate over data points
-      for (const data of allData) {
-        // Make a POST request to create a step for each data point
-        console.log('td', testId);
-        console.log(data.timestamp);
-        const stepResponse = await fetch('http://127.0.0.1:8000/api/steps/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            timestamp: convertTimestampToDatetime(data.timestamp),
-            test_id: testId,
-          }),
-        });
-
-        if (!stepResponse.ok) {
-          throw new Error('Failed to create step');
-        }
-
-        const stepId = (await stepResponse.json()).id;
-
-        // Iterate over sensor values
-        for (const sensorValue of data.sensorValues) {
-          const sensorReadingResponse = await fetch('http://127.0.0.1:8000/api/sensor-readings/', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              sensor_id: data.sensorValues.indexOf(sensorValue),
-              value: sensorValue,
-              step_id: stepId,
-            }),
-          });
-
-          if (!sensorReadingResponse.ok) {
-            throw new Error('Failed to create sensor reading');
-          }
-        }
-      }
+      // make a post request of the data to save average data
+      await fetch('http://127.0.0.1:8000/api/data/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          test_id: testId,
+          data: allData,
+        }),
+      });
 
       alert('Test finished successfully');
     } catch (error) {
