@@ -8,6 +8,7 @@ export default function AddUser({ onAddUser }: { onAddUser: () => void }) {
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [dob, setDob] = useState<string>('');
+  const [gender, setGender] = useState<number>(0); //0-M, 1-F, 2-Other
   const [error, setError] = useState<string>('');
   const [selectedSizeUnit, setSelectedSizeUnit] = useState('US');
   const [usSize, setUsSize] = useState('');
@@ -39,7 +40,6 @@ export default function AddUser({ onAddUser }: { onAddUser: () => void }) {
       }
       const user = await userResponse.json();
       const userId = user.id;
-      console.log('user', user);
 
       const profileResponse = await fetch(`http://127.0.0.1:8000/api/profiles/`, {
         method: 'POST',
@@ -49,6 +49,7 @@ export default function AddUser({ onAddUser }: { onAddUser: () => void }) {
         body: JSON.stringify({
           user_id: userId,
           dob: dob,
+          gender: gender,
         }),
       });
       if (!profileResponse.ok) {
@@ -114,20 +115,33 @@ export default function AddUser({ onAddUser }: { onAddUser: () => void }) {
             />
           </div>
         </div>
-
-        <div className='dob-input'>
-          <label htmlFor='dob'>
-            Date of Birth: <span className='required'>*</span>
-          </label>
-          <input
-            type='date'
-            id='dob'
-            name='dob'
-            value={dob}
-            onChange={e => setDob(e.target.value)}
-            required
-          />
+        <div className='birth-gender-row'>
+          <div className='dob-input'>
+            <label htmlFor='dob'>
+              Date of Birth: <span className='required'>*</span>
+            </label>
+            <input
+              type='date'
+              id='dob'
+              name='dob'
+              value={dob}
+              onChange={e => setDob(e.target.value)}
+              required
+            />
+          </div>
+          <div className='gender-input'>
+            <label htmlFor='gender'>
+              Gender <span className='required'>*</span>
+            </label>
+            <select id='gender' onChange={e => setGender(parseInt(e.target.value))} value={gender}>
+              <option value={0}>Male</option>
+              <option value={1}>Female</option>
+              <option value={2}>Other</option>
+              <option value={3}>Prefer not to say</option>
+            </select>
+          </div>
         </div>
+
         <div className='name-row'>
           <div className='shoe-size-input'>
             <label htmlFor='shoe-size-unit'>Select Size Unit:</label>
