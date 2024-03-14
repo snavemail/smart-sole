@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Profile, Test, User } from '../types';
 import Loading from './Loading';
 import '../css/user-details.css';
-import TestComponent from '../components/Test';
+import TestComponent from '../components/TestComponent';
 import ProfileDetails from '../components/Profile';
 
 export default function UserDetails() {
@@ -121,7 +121,7 @@ export default function UserDetails() {
       </div>
       <div className='content'>
         {showProfile ? (
-          <ProfileDetails user={user} profile={profile} loading={loading} />
+          <ProfileDetails user={user} profile={profile} />
         ) : (
           <>
             <h1>Graphs</h1>
