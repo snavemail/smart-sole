@@ -5,6 +5,7 @@ import { Profile, Test, User } from '../types';
 import Loading from './Loading';
 import '../css/user-details.css';
 import TestComponent from '../components/Test';
+import ProfileDetails from './Profile';
 
 export default function UserDetails() {
   const { userId } = useParams();
@@ -13,9 +14,15 @@ export default function UserDetails() {
   const [loading, setLoading] = useState<boolean>(true);
   const [userTests, setUserTests] = useState<Test[]>([]);
   const [id, setId] = useState<number>(0);
+  const [showProfile, setShowProfile] = useState<boolean>(true);
 
   const handleTestClick = (testId: number) => {
+    setShowProfile(false);
     setId(testId);
+  };
+
+  const showProfilePage = () => {
+    setShowProfile(true);
   };
 
   useEffect(() => {
@@ -86,13 +93,11 @@ export default function UserDetails() {
     <div className='container'>
       <div className='grid-left'>
         <div className='username'>
-          <a href={`/profile/${userId}`}>
-            <h1>
-              <span>
-                {user.first_name} {user.last_name}
-              </span>
-            </h1>
-          </a>
+          <h1 className='profile-name-wrapper'>
+            <span onClick={showProfilePage} className='profile-name'>
+              {user.first_name} {user.last_name}
+            </span>
+          </h1>
 
           <p>{profile.dob}</p>
           {profile.shoe_size && <p>{profile.shoe_size}</p>}
@@ -115,9 +120,15 @@ export default function UserDetails() {
         </div>
       </div>
       <div className='content'>
-        <h1>Graphs</h1>
-        <p>This is the main content area of the page.</p>
-        <p>{id}</p>
+        {showProfile ? (
+          <ProfileDetails user={user} profile={profile} loading={loading} />
+        ) : (
+          <>
+            <h1>Graphs</h1>
+            <p>This is the main content area of the page.</p>
+            <p>{id}</p>
+          </>
+        )}
       </div>
     </div>
   );

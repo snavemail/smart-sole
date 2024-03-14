@@ -19,7 +19,6 @@ function App() {
         <Route index element={<Admin />} />
         <Route path='user/:userId' element={<User />} />
         <Route path='test/:profileId/' element={isConnected ? <Test /> : <Connect />} />
-        <Route path='profile/:userId' element={<Profile />} />
         <Route path='connect' element={<Connect />} />
         <Route path='test' element={<Test />} />
         <Route path='loading' element={<Loading />} />

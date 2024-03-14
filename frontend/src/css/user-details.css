@@ -12,6 +12,14 @@
   flex-direction: column;
 }
 
+.profile-name-wrapper {
+  display: flex;
+}
+
+.profile-name {
+  cursor: pointer;
+}
+
 .tests-wrapper {
   display: flex;
   width: 100%;
