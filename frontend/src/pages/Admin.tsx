@@ -30,7 +30,7 @@ export default function Admin() {
 
   const handleChange = (selectedOption: SearchUser | null) => {
     if (selectedOption) {
-      navigate(`/users/${selectedOption.value}`);
+      navigate(`/user/${selectedOption.value}`);
     } else {
       console.log('No option selected');
     }
