@@ -86,11 +86,14 @@ export default function UserDetails() {
     <div className='container'>
       <div className='grid-left'>
         <div className='username'>
-          <h1>
-            <span>
-              {user.first_name} {user.last_name}
-            </span>
-          </h1>
+          <a href={`/profile/${userId}`}>
+            <h1>
+              <span>
+                {user.first_name} {user.last_name}
+              </span>
+            </h1>
+          </a>
+
           <p>{profile.dob}</p>
           {profile.shoe_size && <p>{profile.shoe_size}</p>}
         </div>
