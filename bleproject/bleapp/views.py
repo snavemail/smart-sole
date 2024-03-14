@@ -12,6 +12,13 @@ from .serializers import (
 from rest_framework.renderers import JSONRenderer
 
 
+@api_view(["GET", "POST"])
+def receive_sensor_data(request):
+    data = request.data
+    print(data)
+    return Response({"message": "Data received"}, status=200)
+
+
 @api_view(["GET"])
 def user_list(request):
     users = User.objects.all()

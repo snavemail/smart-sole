@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path("data/", views.receive_sensor_data, name="receive_sensor_data"),
     path("users/", views.users, name="user-list-create"),
     path(
         "get-user-profile/<int:user_id>",
