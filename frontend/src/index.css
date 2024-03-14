@@ -29,3 +29,12 @@ code {
 * {
   box-sizing: border-box;
 }
+
+.main-div {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
