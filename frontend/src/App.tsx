@@ -9,6 +9,7 @@ import Graph from './pages/Graph';
 import NoPage from './pages/NoPage';
 import Admin from './pages/Admin';
 import User from './pages/User';
+import Profile from './pages/Profile';
 
 function App() {
   const { isConnected } = useBle();
@@ -16,8 +17,9 @@ function App() {
     <Router>
       <Routes>
         <Route index element={<Admin />} />
-        <Route path='users/:userId' element={<User />} />
-        <Route path='/test/:profileId/' element={isConnected ? <Test /> : <Connect />} />
+        <Route path='user/:userId' element={<User />} />
+        <Route path='test/:profileId/' element={isConnected ? <Test /> : <Connect />} />
+        <Route path='profile/:userId' element={<Profile />} />
         <Route path='connect' element={<Connect />} />
         <Route path='test' element={<Test />} />
         <Route path='loading' element={<Loading />} />
