@@ -1,4 +1,3 @@
-from datetime import timezone
 from django.db import models
 from django.contrib.auth.hashers import make_password, check_password
 
@@ -33,7 +32,7 @@ class Profile(models.Model):
 
 class Test(models.Model):
     profile_id = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100, default="")
+    name = models.CharField(max_length=100, default="Default Test Name")
     start_time = models.DateTimeField(auto_now=True)
     duration = models.IntegerField()  # in milliseconds
     created_at = models.DateTimeField(auto_now_add=True)
@@ -41,15 +40,6 @@ class Test(models.Model):
 
     def __str__(self):
         return self.name
-
-    class Meta:
-        unique_together = ["name", "profile_id"]
-
-    def save(self, *args, **kwargs):
-        if not self.name:
-            # Set default name to test + test_id + time
-            self.name = f"test_{self.id}_"
-        super().save(*args, **kwargs)
 
 
 class Step(models.Model):
