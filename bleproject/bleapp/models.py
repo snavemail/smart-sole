@@ -20,6 +20,7 @@ class User(models.Model):
 class Profile(models.Model):
     user_id = models.OneToOneField(User, on_delete=models.CASCADE)
     dob = models.DateField()
+    gender = models.IntegerField()
     weight = models.FloatField(null=True)
     height = models.FloatField(null=True)
     shoe_size = models.FloatField(null=True)
