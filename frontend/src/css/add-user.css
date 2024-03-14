@@ -12,9 +12,9 @@ button {
   width: 100%;
 }
 
-button {
+.add-user-button {
   margin: 2px;
-  padding: 1px;
+  padding: 5px;
 }
 
 .user-form {

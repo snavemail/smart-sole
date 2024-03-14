@@ -39,6 +39,7 @@ export default function AddUser({ onAddUser }: { onAddUser: () => void }) {
       }
       const user = await userResponse.json();
       const userId = user.id;
+      console.log('user', user);
 
       const profileResponse = await fetch(`http://127.0.0.1:8000/api/profiles/`, {
         method: 'POST',
@@ -48,8 +49,6 @@ export default function AddUser({ onAddUser }: { onAddUser: () => void }) {
         body: JSON.stringify({
           user_id: userId,
           dob: dob,
-          shoe_size:
-            selectedSizeUnit === 'US' ? usSize : selectedSizeUnit === 'EU' ? euSize : cmSize,
         }),
       });
       if (!profileResponse.ok) {
@@ -190,7 +189,9 @@ export default function AddUser({ onAddUser }: { onAddUser: () => void }) {
           </div>
         </div>
         <div className='submit-button'>
-          <button type='submit'>Add User</button>
+          <button type='submit' className='add-user-button'>
+            Add User
+          </button>
         </div>
         {error && <div style={{ color: 'red' }}>{error}</div>}
       </form>
