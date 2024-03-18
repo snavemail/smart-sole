@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../css/add-user.css';
 import { cmSizes, euSizes, ukSizes, usSizes } from '../constants';
 import '../css/shoe-size.css';
@@ -15,14 +15,30 @@ export default function AddUser({ onAddUser }: { onAddUser: () => void }) {
   const [dob, setDob] = useState<string>('');
   const [gender, setGender] = useState<number>(0); //0-M, 1-F, 2-Other
   const [error, setError] = useState<string>('');
-  const [selectedSizeUnit, setSelectedSizeUnit] = useState('US');
-  const [usSize, setUsSize] = useState('');
-  const [euSize, setEuSize] = useState('');
-  const [ukSize, setUkSize] = useState('');
-  const [cmSize, setCmSize] = useState('');
+  const [size, setSize] = useState<size>({ unit: 'US', size: '' });
+  const [sizeChart, setSizeChart] = useState(usSizes);
 
-  const handleSizeUnitChange = (event: { target: { value: React.SetStateAction<string> } }) => {
-    setSelectedSizeUnit(event.target.value);
+  useEffect(() => {
+    switch (size.unit) {
+      case 'US':
+        setSizeChart(usSizes);
+        break;
+      case 'EU':
+        setSizeChart(euSizes);
+        break;
+      case 'UK':
+        setSizeChart(ukSizes);
+        break;
+      case 'CM':
+        setSizeChart(cmSizes);
+        break;
+      default:
+        setSizeChart(usSizes);
+    }
+  }, [size]);
+
+  const handleSizeUnitChange = (event: any) => {
+    setSize({ unit: event.target.value, size: size.size });
   };
 
   const handleSubmit = async (event: { preventDefault: () => void }) => {
@@ -65,10 +81,7 @@ export default function AddUser({ onAddUser }: { onAddUser: () => void }) {
       setLastName('');
       setDob('');
       setError('');
-      setUsSize('');
-      setEuSize('');
-      setCmSize('');
-      setUkSize('');
+      setSize({ unit: size.unit, size: '' });
       onAddUser();
       alert('User and profile created successfully');
     } catch (e) {
@@ -152,10 +165,7 @@ export default function AddUser({ onAddUser }: { onAddUser: () => void }) {
             <label htmlFor='shoe-size-unit'>Select Size Unit:</label>
             <div className='unit-selector-wrapper'>
               <div className='select-unit'>
-                <select
-                  id='shoe-size-unit'
-                  onChange={handleSizeUnitChange}
-                  value={selectedSizeUnit}>
+                <select id='shoe-size-unit' onChange={handleSizeUnitChange} value={size.unit}>
                   <option value='US'>US</option>
                   <option value='EU'>EU</option>
                   <option value='UK'>UK</option>
@@ -163,46 +173,16 @@ export default function AddUser({ onAddUser }: { onAddUser: () => void }) {
                 </select>
               </div>
               <div className='select-size'>
-                {selectedSizeUnit === 'US' && (
-                  <select value={usSize} onChange={e => setUsSize(e.target.value)}>
-                    <option value=''>Select Size</option>
-                    {usSizes.map(size => (
-                      <option key={size} value={size}>
-                        {size}
-                      </option>
-                    ))}
-                  </select>
-                )}
-                {selectedSizeUnit === 'EU' && (
-                  <select value={euSize} onChange={e => setEuSize(e.target.value)}>
-                    <option value=''>Select Size</option>
-                    {euSizes.map(size => (
-                      <option key={size} value={size}>
-                        {size}
-                      </option>
-                    ))}
-                  </select>
-                )}
-                {selectedSizeUnit === 'UK' && (
-                  <select value={ukSize} onChange={e => setUkSize(e.target.value)}>
-                    <option value=''>Select Size</option>
-                    {ukSizes.map(size => (
-                      <option key={size} value={size}>
-                        {size}
-                      </option>
-                    ))}
-                  </select>
-                )}
-                {selectedSizeUnit === 'CM' && (
-                  <select value={cmSize} onChange={e => setCmSize(e.target.value)}>
-                    <option value=''>Select Size</option>
-                    {cmSizes.map(size => (
-                      <option key={size} value={size}>
-                        {size}
-                      </option>
-                    ))}
-                  </select>
-                )}
+                <select
+                  value={size.size}
+                  onChange={e => setSize({ unit: size.unit, size: e.target.value })}>
+                  <option value=''>Select Size</option>
+                  {sizeChart.map(size => (
+                    <option key={size} value={size}>
+                      {size}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
           </div>
