@@ -30,9 +30,13 @@ export const usSizes: number[] = Object.values(shoeSizes)
   .map(size => size.us)
   .sort((a, b) => a - b);
 
-export const euSizes: number[] = Object.values(shoeSizes)
-  .map(size => size.eu)
-  .sort((a, b) => a - b);
+export const euSizes: number[] = [
+  ...new Set(
+    Object.values(shoeSizes)
+      .map(size => size.eu)
+      .sort((a, b) => a - b),
+  ),
+];
 
 export const ukSizes: number[] = Object.values(shoeSizes)
   .map(size => size.uk)
