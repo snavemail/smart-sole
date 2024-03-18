@@ -1,9 +1,9 @@
 :root {
   --background: #f1f1f1;
   --foreground: #1f1f1f;
-  --functional: #7d7e75;
-  --accent: #a64253;
-  --pop: #f78e69;
+  --functional: #7d7e75; /* battleship gray */
+  --accent: #a64253; /* Redwood */
+  --pop: #f78e69; /* Coral */
   --functional-light: #d0cdcd;
   /* --button-bg: #686666;
   --button-fg: #f5f5f5; */
@@ -18,19 +18,11 @@
   --font-size-caption: 12px;
 
   /* Font weights */
-  --font-weight-headline: 900;
-  --font-weight-subheadline: 700;
-  --font-weight-section: 700;
+  --font-weight-headline: 700;
+  --font-weight-subheadline: 500;
+  --font-weight-section: 500;
   --font-weight-body: 400;
   --font-weight-caption: 300;
-
-  /* Fonts */
-  --font-headline: var(var(--font-family-kaku)) var(--font-headline) var(--font-size-headline);
-  --font-subheadline: var(var(--font-family-kaku)) var(--font-subheadline)
-    var(--font-size-subheadline);
-  --font-section: var(var(--font-family-kaku)) var(--font-section) var(--font-size-section);
-  --font-body: var(var(--font-family-kaku)) var(--font-body) var(--font-size-body);
-  --font-caption: var(var(--font-family-kaku)) var(--font-caption) var(--font-size-caption);
 }
 
 body {
