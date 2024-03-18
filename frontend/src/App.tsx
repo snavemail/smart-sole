@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Loading from './pages/Loading';
 import Graph from './pages/Graph';
 import NoPage from './pages/NoPage';
-import Admin from './pages/Admin';
+import Admin from './pages/admin';
 import User from './pages/User';
 import { ToastContainer } from 'react-toastify';
 

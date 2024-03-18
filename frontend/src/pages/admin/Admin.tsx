@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
-import { SearchUser, User } from '../types';
+import { SearchUser, User } from '../../types';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../css/admin.css';
-import AddUser from '../components/AddUser';
+import './admin.css';
+import AddUser from '../../components/AddUser';
 
 function formatUsers(users: User[]) {
   return users.map(user => {
@@ -47,13 +47,13 @@ export default function Admin() {
   return (
     <div className='admin-wrapper'>
       <div className='select-user'>
-        <h1>
+        <h1 className='select-header header'>
           <span>Select User</span>
         </h1>
         <Select className='selector' options={users} onChange={handleChange} />
       </div>
       <div className='add-user'>
-        <h1>
+        <h1 className='add-header header'>
           <span>Add User</span>
         </h1>
         <AddUser onAddUser={handleAddUser} />

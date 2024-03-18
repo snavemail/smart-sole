@@ -10,6 +10,12 @@
   padding: 0 20px;
 }
 
+.header {
+  font-family: var(--font-family-kaku);
+  font-size: var(--font-size-headline);
+  font-weight: var(--font-weight-headline);
+}
+
 @media screen and (max-width: 1080px) {
   .admin-wrapper {
     flex-direction: column;
