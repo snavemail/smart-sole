@@ -68,11 +68,11 @@ export default function Test() {
         }),
       });
 
-      successToast('Test finished successfully');
+      alert('Test finished successfully');
 
       // alert('Test finished successfully');
     } catch (error) {
-      errorToast('Error finishing test');
+      alert('Error finishing test');
     }
   };
 
