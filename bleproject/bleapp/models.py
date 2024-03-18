@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.hashers import make_password, check_password
 
 
-# Create your models here.
 class User(models.Model):
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=100, blank=True, null=True)
@@ -43,67 +42,33 @@ class Test(models.Model):
         return self.name
 
 
-class Step(models.Model):
+class AverageStep(models.Model):
     test_id = models.ForeignKey(Test, on_delete=models.CASCADE)
-    timestamp = models.DateTimeField()
+    std_dev = models.FloatField()
+    mean = models.FloatField()
+    median = models.FloatField()
+    min_value = models.FloatField()
+    max_value = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.timestamp + " " + self.value
+        return self.test_id + " " + self.std_dev + " " + self.mean
 
 
-class SensorReading(models.Model):
-    step_id = models.ForeignKey(Step, on_delete=models.CASCADE)
+class AverageSensorReading(models.Model):
+    step_id = models.ForeignKey(AverageStep, on_delete=models.CASCADE)
     sensor_id = models.IntegerField()
     value = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.sensor_id + " " + self.timestamp + " " + self.value
-
-
-class AverageStep(models.Model):
-    test_id = models.ForeignKey(Test, on_delete=models.CASCADE)
-    sensor_0_time = models.IntegerField()
-    sensor_0_value = models.FloatField()
-    sensor_1_time = models.IntegerField()
-    sensor_1_value = models.FloatField()
-    sensor_2_time = models.IntegerField()
-    sensor_2_value = models.FloatField()
-    sensor_3_time = models.IntegerField()
-    sensor_3_value = models.FloatField()
-    sensor_4_time = models.IntegerField()
-    sensor_4_value = models.FloatField()
-    sensor_5_time = models.IntegerField()
-    sensor_5_value = models.FloatField()
-
-    def __str__(self):
         return (
-            self.test_id
-            + " "
-            + self.sensor_0_time
-            + " "
-            + self.sensor_0_value
-            + " "
-            + self.sensor_1_time
-            + " "
-            + self.sensor_1_value
-            + " "
-            + self.sensor_2_time
-            + " "
-            + self.sensor_2_value
-            + " "
-            + self.sensor_3_time
-            + " "
-            + self.sensor_3_value
-            + " "
-            + self.sensor_4_time
-            + " "
-            + self.sensor_4_value
-            + " "
-            + self.sensor_5_time
-            + " "
-            + self.sensor_5_value
+            "avg step for sensor: "
+            + self.sensor_id
+            + " at "
+            + self.timestamp
+            + " is "
+            + self.value
         )

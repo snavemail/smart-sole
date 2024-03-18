@@ -6,6 +6,8 @@ import { SensorData } from '../types';
 import { useBle } from '../hooks/useBle';
 import { useParams } from 'react-router-dom';
 import { convertTimestampToDatetime } from '../utils/formatdate';
+import { errorToast, successToast } from '../toasts';
+import { ToastContainer } from 'react-toastify';
 
 export default function Test() {
   const { data } = useBle();
@@ -66,10 +68,11 @@ export default function Test() {
         }),
       });
 
-      alert('Test finished successfully');
+      successToast('Test finished successfully');
+
+      // alert('Test finished successfully');
     } catch (error) {
-      console.error('Error finishing test:', error);
-      alert('Error finishing test');
+      errorToast('Error finishing test');
     }
   };
 
@@ -93,6 +96,7 @@ export default function Test() {
       <div className='next-div'>
         <button onClick={finishTest}>Finish</button>
       </div>
+      <ToastContainer />
     </div>
   );
 }

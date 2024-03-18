@@ -20,8 +20,12 @@ export default function Admin() {
   const navigate = useNavigate();
 
   const fetchUsers = async () => {
-    const response = await axios.get('http://127.0.0.1:8000/api/users/');
-    setUsers(formatUsers(response.data));
+    try {
+      const response = await axios.get('http://127.0.0.1:8000/api/users/');
+      setUsers(formatUsers(response.data));
+    } catch (error: any) {
+      console.error('Error fetching users', error.message);
+    }
   };
 
   useEffect(() => {

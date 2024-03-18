@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import Connect from './pages/Connect';
 import Test from './pages/Test';
 import { useBle } from './hooks/useBle';
@@ -9,7 +8,7 @@ import Graph from './pages/Graph';
 import NoPage from './pages/NoPage';
 import Admin from './pages/Admin';
 import User from './pages/User';
-import Profile from './components/Profile';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   const { isConnected } = useBle();

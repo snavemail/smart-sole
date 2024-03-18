@@ -3,6 +3,11 @@ import '../css/add-user.css';
 import { cmSizes, euSizes, ukSizes, usSizes } from '../constants';
 import '../css/shoe-size.css';
 
+type size = {
+  unit: string;
+  size: string;
+};
+
 export default function AddUser({ onAddUser }: { onAddUser: () => void }) {
   const [email, setEmail] = useState<string>('');
   const [firstName, setFirstName] = useState<string>('');

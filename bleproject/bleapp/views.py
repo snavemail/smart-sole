@@ -1,20 +1,20 @@
 from rest_framework import status, generics
-from rest_framework.decorators import api_view, renderer_classes
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import User, Profile, Test, Step, SensorReading
+from .models import User, Profile, Test, AverageStep, AverageSensorReading
 from .serializers import (
     UserSerializer,
     ProfileSerializer,
     TestSerializer,
-    StepSerializer,
-    SensorReadingSerializer,
+    AverageStepSerializer,
+    AverageSensorReadingSerializer,
 )
-from rest_framework.renderers import JSONRenderer
 
 
 @api_view(["GET", "POST"])
 def receive_sensor_data(request):
     data = request.data
+
     print(data)
     return Response({"message": "Data received"}, status=200)
 
@@ -149,13 +149,13 @@ def get_user_tests(request, profile_id):
 
 
 @api_view(["GET", "POST"])
-def steps(request):
+def average_sensor_readings(request):
     if request.method == "GET":
-        steps = Step.objects.all()
-        serializer = StepSerializer(steps, many=True)
+        sensor_readings = AverageSensorReading.objects.all()
+        serializer = AverageSensorReadingSerializer(sensor_readings, many=True)
         return Response(serializer.data)
     elif request.method == "POST":
-        serializer = StepSerializer(data=request.data)
+        serializer = AverageSensorReadingSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -163,52 +163,17 @@ def steps(request):
 
 
 @api_view(["GET", "PUT", "DELETE"])
-def step_retrieve_update_destroy(request, pk):
+def average_sensor_reading_retrieve_update_destroy(request, pk):
     try:
-        step = Step.objects.get(pk=pk)
-    except Step.DoesNotExist:
+        sensor_reading = AverageSensorReading.objects.get(pk=pk)
+    except AverageSensorReading.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == "GET":
-        serializer = StepSerializer(step)
+        serializer = AverageSensorReadingSerializer(sensor_reading)
         return Response(serializer.data)
     elif request.method == "PUT":
-        serializer = StepSerializer(step, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    elif request.method == "DELETE":
-        step.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-@api_view(["GET", "POST"])
-def sensor_readings(request):
-    if request.method == "GET":
-        sensor_readings = SensorReading.objects.all()
-        serializer = SensorReadingSerializer(sensor_readings, many=True)
-        return Response(serializer.data)
-    elif request.method == "POST":
-        serializer = SensorReadingSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(["GET", "PUT", "DELETE"])
-def sensor_reading_retrieve_update_destroy(request, pk):
-    try:
-        sensor_reading = SensorReading.objects.get(pk=pk)
-    except SensorReading.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == "GET":
-        serializer = SensorReadingSerializer(sensor_reading)
-        return Response(serializer.data)
-    elif request.method == "PUT":
-        serializer = SensorReadingSerializer(sensor_reading, data=request.data)
+        serializer = AverageSensorReadingSerializer(sensor_reading, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -221,11 +186,11 @@ def sensor_reading_retrieve_update_destroy(request, pk):
 @api_view(["GET", "POST"])
 def average_steps(request):
     if request.method == "GET":
-        average_steps = Step.objects.all()
-        serializer = StepSerializer(average_steps, many=True)
+        average_steps = AverageStep.objects.all()
+        serializer = AverageStepSerializer(average_steps, many=True)
         return Response(serializer.data)
     elif request.method == "POST":
-        serializer = StepSerializer(data=request.data)
+        serializer = AverageStepSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -235,15 +200,15 @@ def average_steps(request):
 @api_view(["GET", "PUT", "DELETE"])
 def average_step_retrieve_update_destroy(request, pk):
     try:
-        average_step = Step.objects.get(pk=pk)
-    except Step.DoesNotExist:
+        average_step = AverageStep.objects.get(pk=pk)
+    except AverageStep.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == "GET":
-        serializer = StepSerializer(average_step)
+        serializer = AverageStepSerializer(average_step)
         return Response(serializer.data)
     elif request.method == "PUT":
-        serializer = StepSerializer(average_step, data=request.data)
+        serializer = AverageStepSerializer(average_step, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -253,61 +218,51 @@ def average_step_retrieve_update_destroy(request, pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class UserListCreate(generics.ListCreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+# class UserListCreate(generics.ListCreateAPIView):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
 
 
-class UserRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+# class UserRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
 
 
-class ProfileListCreate(generics.ListCreateAPIView):
-    queryset = Profile.objects.all()
-    serializer_class = ProfileSerializer
+# class ProfileListCreate(generics.ListCreateAPIView):
+#     queryset = Profile.objects.all()
+#     serializer_class = ProfileSerializer
 
 
-class ProfileRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Profile.objects.all()
-    serializer_class = ProfileSerializer
+# class ProfileRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Profile.objects.all()
+#     serializer_class = ProfileSerializer
 
 
-class TestListCreate(generics.ListCreateAPIView):
-    queryset = Test.objects.all()
-    serializer_class = TestSerializer
+# class TestListCreate(generics.ListCreateAPIView):
+#     queryset = Test.objects.all()
+#     serializer_class = TestSerializer
 
 
-class TestRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Test.objects.all()
-    serializer_class = TestSerializer
+# class TestRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Test.objects.all()
+#     serializer_class = TestSerializer
 
 
-class StepListCreate(generics.ListCreateAPIView):
-    queryset = Step.objects.all()
-    serializer_class = StepSerializer
+# class AverageStepListCreate(generics.ListCreateAPIView):
+#     queryset = AverageStep.objects.all()
+#     serializer_class = StepSerializer
 
 
-class StepRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Step.objects.all()
-    serializer_class = StepSerializer
+# class AverageStepRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = AverageStep.objects.all()
+#     serializer_class = StepSerializer
 
 
-class SensorReadingListCreate(generics.ListCreateAPIView):
-    queryset = SensorReading.objects.all()
-    serializer_class = SensorReadingSerializer
+# class SensorReadingListCreate(generics.ListCreateAPIView):
+#     queryset = AverageSensorReading.objects.all()
+#     serializer_class = SensorReadingSerializer
 
 
-class SensorReadingRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
-    queryset = SensorReading.objects.all()
-    serializer_class = SensorReadingSerializer
-
-
-class AverageStepListCreate(generics.ListCreateAPIView):
-    queryset = Step.objects.all()
-    serializer_class = StepSerializer
-
-
-class AverageStepRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Step.objects.all()
-    serializer_class = StepSerializer
+# class SensorReadingRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = AverageSensorReading.objects.all()
+#     serializer_class = SensorReadingSerializer
