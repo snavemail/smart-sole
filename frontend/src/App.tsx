@@ -11,19 +11,27 @@ import UserDetails from './pages/userDetails';
 import './App.css';
 import AddUserPage from './pages/addUserPage';
 import Navbar from './components/Navbar';
+import { useProfile } from './hooks/useProfile';
 
 function App() {
   const { isConnected } = useBle();
+  const { user, profile } = useProfile();
+  const validData = user && profile;
   return (
     <Router>
       <div className='ss-container'>
         <Navbar />
         <div className='main-content'>
           <Routes>
-            <Route index element={<Navigate to='/search' replace />} />
+            <Route
+              index
+              element={
+                validData ? <Navigate to='/user' replace /> : <Navigate to='/search' replace />
+              }
+            />
             <Route path='search' element={<SearchPage />} />
             <Route path='add-user' element={<AddUserPage />} />
-            <Route path='user/:userId' element={<UserDetails />} />
+            <Route path='user' element={validData ? <UserDetails /> : <SearchPage />} />
             <Route path='test/:profileId/' element={isConnected ? <Test /> : <Connect />} />
             <Route path='connect' element={<Connect />} />
             <Route path='test' element={<Test />} />

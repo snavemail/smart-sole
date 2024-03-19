@@ -4,7 +4,6 @@ import { SearchUser, User } from '../../types';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './search.css';
-import { errorToast, successToast } from '../../toasts';
 import UserPlusIcon from '../../icons/UserPlusIcon';
 import { useProfile } from '../../hooks/useProfile';
 
@@ -37,15 +36,11 @@ export default function SearchPage() {
   }, []);
   const handleChange = async (selectedOption: SearchUser | null) => {
     if (selectedOption) {
-      console.log(`Option selected:`, selectedOption);
-      console.log('sdkfhsfjskdjf');
       const response = await axios.get(
         `http://127.0.0.1:8000/api/get-user-profile/${selectedOption.value.id}`,
       );
-      console.log('qwekfsejf');
-      console.log('Profile:', response.data);
       setProfileData(selectedOption.value, response.data);
-      navigate(`/user/${selectedOption.value.id}`);
+      navigate(`/user`);
     } else {
       console.log('No option selected');
     }
