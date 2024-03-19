@@ -4,13 +4,16 @@ import './index.css';
 import App from './App';
 import BLEProvider from './hooks/useBle';
 import { ToastContainer } from 'react-toastify';
+import ProfileProvider from './hooks/useProfile';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <BLEProvider>
-      <App />
-      <ToastContainer />
-    </BLEProvider>
+    <ProfileProvider>
+      <BLEProvider>
+        <App />
+        <ToastContainer />
+      </BLEProvider>
+    </ProfileProvider>
   </React.StrictMode>,
 );
