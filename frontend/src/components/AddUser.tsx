@@ -4,8 +4,10 @@ import '../css/add-user.css';
 import { Size } from '../types';
 import { errorToast, successToast } from '../toasts';
 import { useNavigate } from 'react-router-dom';
+import { useProfile } from '../hooks/useProfile';
 
 export default function AddUser() {
+  const { setProfileData } = useProfile();
   const [email, setEmail] = useState<string>('');
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
@@ -75,14 +77,8 @@ export default function AddUser() {
       if (!profileResponse.ok) {
         throw new Error('Failed to create profile');
       }
-      setEmail('');
-      setFirstName('');
-      setLastName('');
-      setDob('');
-      setError('');
-      setSize({ unit: size.unit, size: '' });
       successToast('User and profile created successfully');
-      navigate('/');
+      navigate(`/user/${userId}`);
     } catch (e) {
       errorToast('Error adding user');
     }
