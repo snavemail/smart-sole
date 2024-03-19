@@ -7,7 +7,7 @@ import Loading from './pages/Loading';
 import Graph from './pages/Graph';
 import NoPage from './pages/noPage/NoPage';
 import SearchPage from './pages/search';
-import UserDetails from './pages/user/';
+import UserDetails from './pages/userDetails';
 import './App.css';
 import AddUserPage from './pages/addUserPage';
 import Navbar from './components/Navbar';
