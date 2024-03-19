@@ -4,7 +4,8 @@ import { SearchUser, User } from '../../types';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './admin.css';
-import AddUser from '../../components/AddUser';
+import { errorToast, successToast } from '../../toasts';
+import UserPlusIcon from '../../icons/UserPlusIcon';
 
 function formatUsers(users: User[]) {
   return users.map(user => {
@@ -23,15 +24,15 @@ export default function Admin() {
     try {
       const response = await axios.get('http://127.0.0.1:8000/api/users/');
       setUsers(formatUsers(response.data));
+      successToast('Users fetched successfully');
     } catch (error: any) {
-      console.error('Error fetching users', error.message);
+      // errorToast('Failed to fetch users');
     }
   };
 
   useEffect(() => {
     fetchUsers();
   }, []);
-
   const handleChange = (selectedOption: SearchUser | null) => {
     if (selectedOption) {
       navigate(`/user/${selectedOption.value}`);
@@ -40,24 +41,19 @@ export default function Admin() {
     }
   };
 
-  const handleAddUser = () => {
-    fetchUsers();
-  };
-
   return (
-    <div className='admin-wrapper'>
-      <div className='select-user'>
-        <h1 className='select-header header'>
-          <span>Select User</span>
-        </h1>
-        <Select className='selector' options={users} onChange={handleChange} />
-      </div>
-      <div className='add-user'>
+    <div className='select-user-wrapper'>
+      <div className='header-section'>
         <h1 className='add-header header'>
-          <span>Add User</span>
+          <span>Search User</span>
         </h1>
-        <AddUser onAddUser={handleAddUser} />
+        <div>
+          <a href={`/add-user`} className='add-user-link'>
+            <UserPlusIcon />
+          </a>
+        </div>
       </div>
+      <Select className='selector' options={users} onChange={handleChange} />
     </div>
   );
 }

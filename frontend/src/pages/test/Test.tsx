@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import '../css/test.css';
-import FeetIcon from '../icons/FeetIcon';
-import { getCircleStyles } from '../utils';
-import { SensorData } from '../types';
-import { useBle } from '../hooks/useBle';
+import './test.css';
+import FeetIcon from '../../icons/FeetIcon';
+import { getCircleStyles } from '../../utils';
+import { SensorData } from '../../types';
+import { useBle } from '../../hooks/useBle';
 import { useParams } from 'react-router-dom';
-import { convertTimestampToDatetime } from '../utils/formatdate';
-import { errorToast, successToast } from '../toasts';
+import { convertTimestampToDatetime } from '../../utils/formatdate';
+import { errorToast, successToast } from '../../toasts';
 import { ToastContainer } from 'react-toastify';
 
 export default function Test() {
@@ -68,11 +68,9 @@ export default function Test() {
         }),
       });
 
-      alert('Test finished successfully');
-
-      // alert('Test finished successfully');
+      successToast('Test finished successfully');
     } catch (error) {
-      alert('Error finishing test');
+      errorToast('Error finishing test');
     }
   };
 

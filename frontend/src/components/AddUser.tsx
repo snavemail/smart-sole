@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import '../css/add-user.css';
 import { cmSizes, euSizes, ukSizes, usSizes } from '../constants';
-import '../css/shoe-size.css';
+import '../css/add-user.css';
+import { Size } from '../types';
 
-type size = {
-  unit: string;
-  size: string;
-};
-
-export default function AddUser({ onAddUser }: { onAddUser: () => void }) {
+export default function AddUser() {
   const [email, setEmail] = useState<string>('');
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [dob, setDob] = useState<string>('');
   const [gender, setGender] = useState<number>(0); //0-M, 1-F, 2-Other
   const [error, setError] = useState<string>('');
-  const [size, setSize] = useState<size>({ unit: 'US', size: '' });
+  const [size, setSize] = useState<Size>({ unit: 'US', size: '' });
   const [sizeChart, setSizeChart] = useState(usSizes);
 
   useEffect(() => {
@@ -82,7 +77,6 @@ export default function AddUser({ onAddUser }: { onAddUser: () => void }) {
       setDob('');
       setError('');
       setSize({ unit: size.unit, size: '' });
-      onAddUser();
       alert('User and profile created successfully');
     } catch (e) {
       setError('Error adding user');

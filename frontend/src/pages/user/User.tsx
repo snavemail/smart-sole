@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import { Profile, Test, User } from '../types';
-import Loading from './Loading';
-import '../css/user-details.css';
-import TestComponent from '../components/TestComponent';
-import ProfileDetails from '../components/Profile';
+import { Profile, Test, User } from '../../types';
+import Loading from '../Loading';
+import './user-details.css';
+import TestComponent from '../../components/TestComponent';
+import ProfileDetails from '../../components/Profile';
 
 export default function UserDetails() {
   const { userId } = useParams();

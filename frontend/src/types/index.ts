@@ -36,3 +36,8 @@ export type Profile = {
   updated_at: string;
   user_id: number;
 };
+
+export type Size = {
+  unit: string;
+  size: string;
+};

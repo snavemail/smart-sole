@@ -1,6 +1,6 @@
 import React from 'react';
-import { useBle } from '../hooks/useBle';
-import '../css/connect.css';
+import { useBle } from '../../hooks/useBle';
+import './connect.css';
 
 export default function Connect() {
   const { connect } = useBle();

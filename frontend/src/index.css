@@ -23,6 +23,9 @@
   --font-weight-section: 500;
   --font-weight-body: 400;
   --font-weight-caption: 300;
+
+  /* Dimensions */
+  --navbar-width: 285px;
 }
 
 body {
@@ -31,6 +34,10 @@ body {
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-family-kaku);
 }
 
 code {
@@ -48,6 +55,12 @@ code {
   align-items: center;
   justify-content: center;
   padding: 40px;
+}
+
+.header {
+  font-family: var(--font-family-kaku);
+  font-size: var(--font-size-headline);
+  font-weight: var(--font-weight-headline);
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New&display=swap');
