@@ -81,7 +81,7 @@ export default function AddUser() {
       const profile = await profileResponse.json();
       setProfileData(user, profile);
       successToast('User and profile created successfully');
-      navigate(`/user`);
+      navigate(`/profile`);
     } catch (e: any) {
       setError(e.message);
       errorToast('Error adding user');

@@ -32,8 +32,14 @@ function App() {
             />
             <Route path='search' element={<SearchPage />} />
             <Route path='add-user' element={<AddUserPage />} />
-            <Route path='profile' element={validData ? <UserDetails /> : <SearchPage />} />
-            <Route path='tests' element={validData ? <UserTests /> : <SearchPage />} />
+            <Route
+              path='profile'
+              element={validData ? <UserDetails /> : <Navigate to='/search' replace />}
+            />
+            <Route
+              path='tests'
+              element={validData ? <UserTests /> : <Navigate to='/search' replace />}
+            />
             <Route path='test/:profileId/' element={isConnected ? <Test /> : <Connect />} />
             <Route path='/*' element={<NoPage />} />
             {/*Not needed just for testing */}
