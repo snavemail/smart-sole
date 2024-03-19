@@ -11,7 +11,7 @@ export default function AddUserPage() {
           <span>Add User</span>
         </h1>
         <div className='icon-container'>
-          <a href={`/search`} className='add-user-link'>
+          <a href={`/profile`} className='add-user-link'>
             <ReturnIcon />
           </a>
         </div>

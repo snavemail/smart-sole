@@ -40,7 +40,7 @@ export default function SearchPage() {
         `http://127.0.0.1:8000/api/get-user-profile/${selectedOption.value.id}`,
       );
       setProfileData(selectedOption.value, response.data);
-      navigate(`/user`);
+      navigate(`/profile`);
     } else {
       console.log('No option selected');
     }
