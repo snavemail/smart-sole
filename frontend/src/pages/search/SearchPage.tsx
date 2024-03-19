@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import './search.css';
 import { errorToast, successToast } from '../../toasts';
 import UserPlusIcon from '../../icons/UserPlusIcon';
+import { useProfile } from '../../hooks/useProfile';
 
 function formatUsers(users: User[]) {
   return users.map(user => {
@@ -17,6 +18,7 @@ function formatUsers(users: User[]) {
 }
 
 export default function SearchPage() {
+  const { setProfileData } = useProfile();
   const [users, setUsers] = useState<SearchUser[]>([]);
   const navigate = useNavigate();
 
