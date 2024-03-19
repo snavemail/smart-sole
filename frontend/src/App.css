@@ -3,20 +3,6 @@
   align-items: stretch;
 }
 
-.navbar-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-right: 1px solid var(--functional-light);
-  flex-basis: auto;
-  flex-shrink: 0;
-  width: 273px;
-  transition-delay: 250ms;
-  min-height: 100vh;
-  overflow: hidden;
-}
-
 .main-content {
   display: flex;
   flex-direction: column;
