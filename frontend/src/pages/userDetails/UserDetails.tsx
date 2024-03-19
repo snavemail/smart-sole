@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { Profile, Test, User } from '../../types';
-import Loading from '../Loading';
 import './user-details.css';
 import TestComponent from '../../components/TestComponent';
 import ProfileDetails from '../../components/Profile';
+import { useProfile } from '../../hooks/useProfile';
 
 export default function UserDetails() {
-  const { userId } = useParams();
-  const [user, setUser] = useState<User | null>(null);
-  const [profile, setProfile] = useState<Profile | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const { user, profile } = useProfile();
+
   const [userTests, setUserTests] = useState<Test[]>([]);
   const [id, setId] = useState<number>(0);
   const [showProfile, setShowProfile] = useState<boolean>(true);
@@ -24,65 +21,34 @@ export default function UserDetails() {
     setShowProfile(true);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const userResponse = await fetch(`http://127.0.0.1:8000/api/users/${userId}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        if (!userResponse.ok) {
-          throw new Error('User not found');
-        }
-        const user = await userResponse.json();
-        setUser(user);
-
-        const profileResponse = await fetch(
-          `http://127.0.0.1:8000/api/get-user-profile/${user.id}`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          },
-        );
-        if (!profileResponse.ok) {
-          throw new Error('Profile not found');
-        }
-        const profile = await profileResponse.json();
-        setProfile(profile);
-
-        const testsResponse = await fetch(
-          `http://127.0.0.1:8000/api/get-user-tests/${profile.id}`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          },
-        );
-        if (!testsResponse.ok) {
-          throw new Error('Tests not found');
-        }
-        const tests = await testsResponse.json();
-        setUserTests(tests);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    if (userId) {
-      fetchData();
-    }
-  }, [userId]);
-
-  if (loading) {
-    return <Loading />;
-  }
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const testsResponse = await fetch(
+  //         `http://127.0.0.1:8000/api/get-user-tests/${profile.id}`,
+  //         {
+  //           method: 'GET',
+  //           headers: {
+  //             'Content-Type': 'application/json',
+  //           },
+  //         },
+  //       );
+  //       if (!testsResponse.ok) {
+  //         throw new Error('Tests not found');
+  //       }
+  //       const tests = await testsResponse.json();
+  //       setUserTests(tests);
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   if (userId) {
+  //     fetchData();
+  //   }
+  // }, [profile.id, userId]);
 
   if (!user || !profile) {
     return <div>No User</div>;

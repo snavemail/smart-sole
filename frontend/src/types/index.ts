@@ -12,7 +12,7 @@ export type User = {
 
 export type SearchUser = {
   label: string;
-  value: number;
+  value: User;
 };
 
 export type Test = {
@@ -20,8 +20,6 @@ export type Test = {
   name: string;
   start_time: string;
   duration: number;
-  created_at: string;
-  updated_at: string;
   profile_id: number;
 };
 
@@ -32,8 +30,6 @@ export type Profile = {
   weight?: number;
   height?: number;
   shoe_size: number;
-  created_at: string;
-  updated_at: string;
   user_id: number;
 };
 

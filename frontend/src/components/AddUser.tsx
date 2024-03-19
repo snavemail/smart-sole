@@ -77,9 +77,13 @@ export default function AddUser() {
       if (!profileResponse.ok) {
         throw new Error('Failed to create profile');
       }
+
+      const profile = await profileResponse.json();
+      setProfileData(user, profile);
       successToast('User and profile created successfully');
       navigate(`/user/${userId}`);
-    } catch (e) {
+    } catch (e: any) {
+      setError(e.message);
       errorToast('Error adding user');
     }
   };

@@ -12,7 +12,7 @@ function formatUsers(users: User[]) {
   return users.map(user => {
     return {
       label: `${user.first_name} ${user.last_name} (${user.email})`,
-      value: user.id,
+      value: user,
     };
   });
 }
@@ -35,9 +35,17 @@ export default function SearchPage() {
   useEffect(() => {
     fetchUsers();
   }, []);
-  const handleChange = (selectedOption: SearchUser | null) => {
+  const handleChange = async (selectedOption: SearchUser | null) => {
     if (selectedOption) {
-      navigate(`/user/${selectedOption.value}`);
+      console.log(`Option selected:`, selectedOption);
+      console.log('sdkfhsfjskdjf');
+      const response = await axios.get(
+        `http://127.0.0.1:8000/api/get-user-profile/${selectedOption.value.id}`,
+      );
+      console.log('qwekfsejf');
+      console.log('Profile:', response.data);
+      setProfileData(selectedOption.value, response.data);
+      navigate(`/user/${selectedOption.value.id}`);
     } else {
       console.log('No option selected');
     }

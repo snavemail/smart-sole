@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, PropsWithChildren, createContext, useContext } from 'react';
+import { useState, PropsWithChildren, createContext, useContext, useEffect } from 'react';
 import { Profile, User } from '../types';
 
 type ProfileHookType = {
@@ -26,19 +26,19 @@ export const ProfileContext = createContext<ProfileHookType>({
 });
 
 const ProfileProvider = ({ children }: PropsWithChildren) => {
-  const [user, setUser] = useState<User>({
-    id: 0,
-    first_name: '',
-    last_name: '',
-    email: '',
+  const [user, setUser] = useState<User>(() => {
+    const storedUser = localStorage.getItem('user');
+    return storedUser ? JSON.parse(storedUser) : null;
   });
-  const [profile, setProfile] = useState<Profile>({
-    id: 0,
-    dob: '',
-    gender: 0,
-    user_id: 0,
-    shoe_size: 0,
+  const [profile, setProfile] = useState<Profile>(() => {
+    const storedProfile = localStorage.getItem('profile');
+    return storedProfile ? JSON.parse(storedProfile) : null;
   });
+
+  useEffect(() => {
+    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('profile', JSON.stringify(profile));
+  }, [user, profile]);
 
   const setProfileData = (user: User, profile: Profile) => {
     setUser(user);
