@@ -17,10 +17,10 @@ export type SearchUser = {
 
 export type Test = {
   id: number;
+  profile_id: number;
   name: string;
   start_time: string;
   duration: number;
-  profile_id: number;
 };
 
 export type Profile = {
