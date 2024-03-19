@@ -1,5 +1,6 @@
 import React from 'react';
+import UserTests from './UserTests';
 
 export default function index() {
-  return <div>index</div>;
+  return <UserTests />;
 }
