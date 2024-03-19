@@ -3,7 +3,7 @@ import Select from 'react-select';
 import { SearchUser, User } from '../../types';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './admin.css';
+import './search.css';
 import { errorToast, successToast } from '../../toasts';
 import UserPlusIcon from '../../icons/UserPlusIcon';
 
@@ -16,7 +16,7 @@ function formatUsers(users: User[]) {
   });
 }
 
-export default function Admin() {
+export default function SearchPage() {
   const [users, setUsers] = useState<SearchUser[]>([]);
   const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ export default function Admin() {
     try {
       const response = await axios.get('http://127.0.0.1:8000/api/users/');
       setUsers(formatUsers(response.data));
-      successToast('Users fetched successfully');
+      // successToast('Users fetched successfully');
     } catch (error: any) {
       // errorToast('Failed to fetch users');
     }
@@ -47,7 +47,7 @@ export default function Admin() {
         <h1 className='add-header header'>
           <span>Search User</span>
         </h1>
-        <div>
+        <div className='icon-container'>
           <a href={`/add-user`} className='add-user-link'>
             <UserPlusIcon />
           </a>

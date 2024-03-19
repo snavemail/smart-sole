@@ -1,0 +1,36 @@
+.no-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: var(--background);
+  background-image: none;
+}
+
+.title {
+  font-size: 6rem;
+  margin: 0;
+}
+
+.message {
+  font-size: 1.5rem;
+  color: #6c757d; /* Medium gray text color */
+  margin-bottom: 1rem;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  color: #fff; /* White text color */
+  background-color: #5a7693; /* Blue button color */
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #677c92; /* Darker blue on hover */
+}

@@ -19,4 +19,11 @@
   font-family: var(--font-family-kaku);
   font-size: var(--font-size-subheadline);
   font-weight: var(--font-weight-headline);
+  padding: 20px;
+}
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

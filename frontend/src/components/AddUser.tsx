@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { cmSizes, euSizes, ukSizes, usSizes } from '../constants';
 import '../css/add-user.css';
 import { Size } from '../types';
+import { errorToast, successToast } from '../toasts';
+import { useNavigate } from 'react-router-dom';
 
 export default function AddUser() {
   const [email, setEmail] = useState<string>('');
@@ -12,6 +14,8 @@ export default function AddUser() {
   const [error, setError] = useState<string>('');
   const [size, setSize] = useState<Size>({ unit: 'US', size: '' });
   const [sizeChart, setSizeChart] = useState(usSizes);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     switch (size.unit) {
@@ -77,9 +81,10 @@ export default function AddUser() {
       setDob('');
       setError('');
       setSize({ unit: size.unit, size: '' });
-      alert('User and profile created successfully');
+      successToast('User and profile created successfully');
+      navigate('/');
     } catch (e) {
-      setError('Error adding user');
+      errorToast('Error adding user');
     }
   };
 

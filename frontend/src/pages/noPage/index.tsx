@@ -1,6 +1,6 @@
 import React from 'react';
-import Admin from './Admin';
+import NoPage from './NoPage';
 
 export default function index() {
-  return <Admin />;
+  return <NoPage />;
 }
