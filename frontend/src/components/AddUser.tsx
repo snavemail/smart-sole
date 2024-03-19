@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { cmSizes, euSizes, ukSizes, usSizes } from '../constants';
-import '../css/add-user.css';
 import { Size } from '../types';
 import { errorToast, successToast } from '../toasts';
 import { useNavigate } from 'react-router-dom';
 import { useProfile } from '../hooks/useProfile';
+import '../css/add-user.css';
 
 export default function AddUser() {
   const { setProfileData } = useProfile();

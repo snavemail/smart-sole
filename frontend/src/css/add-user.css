@@ -133,3 +133,17 @@ select {
   border-radius: 4px;
   box-sizing: border-box;
 }
+
+@media screen and (max-width: 768px) {
+  .birth-gender-row,
+  .name-row {
+    flex-direction: column;
+  }
+
+  .fname-input,
+  .lname-input,
+  .dob-input,
+  .gender-input {
+    width: 100%;
+  }
+}
