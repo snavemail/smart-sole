@@ -5,7 +5,7 @@ import { Test } from '../../types';
 import TestComponent from '../../components/TestComponent';
 
 export default function UserTests() {
-  const { profile } = useProfile();
+  const { user, profile } = useProfile();
   const [userTests, setUserTests] = useState([]);
 
   useEffect(() => {
@@ -23,7 +23,12 @@ export default function UserTests() {
 
   return (
     <div className='tests-page-container'>
-      <div className='header'></div>
+      <div className='header test-header'>
+        <h1>{user.first_name} Tests</h1>
+        <div>
+          <a href='/test'>Add Test</a>
+        </div>
+      </div>
       <div className='testUserTests'>
         {userTests.map((test: Test) => (
           <TestComponent key={test.id} test={test} />
