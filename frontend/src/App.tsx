@@ -40,7 +40,12 @@ function App() {
               path='tests'
               element={validData ? <UserTests /> : <Navigate to='/search' replace />}
             />
-            <Route path='test/:profileId/' element={isConnected ? <Test /> : <Connect />} />
+            <Route
+              path='test'
+              element={
+                validData ? isConnected ? <Test /> : <Connect /> : <Navigate to='/search' replace />
+              }
+            />
             <Route path='/*' element={<NoPage />} />
             {/*Not needed just for testing */}
             <Route path='connect' element={<Connect />} />
