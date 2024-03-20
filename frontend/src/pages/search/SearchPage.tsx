@@ -23,7 +23,7 @@ export default function SearchPage() {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/users/');
+      const response = await axios.get('http://127.0.0.1:8000/api/users');
       setUsers(formatUsers(response.data));
       // successToast('Users fetched successfully');
     } catch (error: any) {

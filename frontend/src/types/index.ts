@@ -1,6 +1,21 @@
-export type SensorData = {
+export type SensorDatum = {
   timestamp: number;
-  sensorValues: number[];
+  sensor0: number;
+  sensor1: number;
+  sensor2: number;
+  sensor3: number;
+  sensor4: number;
+  sensor5: number;
+};
+
+export type SensorData = {
+  timestamp: number[];
+  sensor0: number[];
+  sensor1: number[];
+  sensor2: number[];
+  sensor3: number[];
+  sensor4: number[];
+  sensor5: number[];
 };
 
 export type User = {

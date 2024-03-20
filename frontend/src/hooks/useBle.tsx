@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { useState, PropsWithChildren, createContext, useContext } from 'react';
-import { SensorData } from '../types';
+import { SensorData, SensorDatum } from '../types';
 
 type BLE = {
   connect: () => void;
   disconnect: () => void;
   resetData: () => void;
   isConnected: boolean;
-  data: SensorData;
-  allData: SensorData[];
+  data: SensorDatum;
+  allData: SensorData;
 };
 
 export const BLEContext = createContext<BLE>({
@@ -16,14 +16,46 @@ export const BLEContext = createContext<BLE>({
   disconnect: () => {},
   resetData: () => {},
   isConnected: false,
-  data: { timestamp: 0, sensorValues: [] },
-  allData: [],
+  data: {
+    timestamp: 0,
+    sensor0: 0,
+    sensor1: 0,
+    sensor2: 0,
+    sensor3: 0,
+    sensor4: 0,
+    sensor5: 0,
+  },
+  allData: {
+    timestamp: [],
+    sensor0: [],
+    sensor1: [],
+    sensor2: [],
+    sensor3: [],
+    sensor4: [],
+    sensor5: [],
+  },
 });
 
 const BLEProvider = ({ children }: PropsWithChildren) => {
   const [isConnected, setIsConnected] = useState(false);
-  const [data, setData] = useState<SensorData>({ timestamp: 0, sensorValues: [] });
-  const [allData, setAllData] = useState<SensorData[]>([]);
+  const [data, setData] = useState<SensorDatum>({
+    timestamp: 0,
+    sensor0: 0,
+    sensor1: 0,
+    sensor2: 0,
+    sensor3: 0,
+    sensor4: 0,
+    sensor5: 0,
+  });
+  const [allData, setAllData] = useState<SensorData>({
+    timestamp: [],
+    sensor0: [],
+    sensor1: [],
+    sensor2: [],
+    sensor3: [],
+    sensor4: [],
+    sensor5: [],
+  });
   const [characteristic, setCharacteristic] = useState<BluetoothRemoteGATTCharacteristic | null>(
     null,
   );
@@ -73,8 +105,24 @@ const BLEProvider = ({ children }: PropsWithChildren) => {
   };
 
   const resetData = () => {
-    setData({ timestamp: 0, sensorValues: [] });
-    setAllData([]);
+    setData({
+      timestamp: 0,
+      sensor0: 0,
+      sensor1: 0,
+      sensor2: 0,
+      sensor3: 0,
+      sensor4: 0,
+      sensor5: 0,
+    });
+    setAllData({
+      timestamp: [],
+      sensor0: [],
+      sensor1: [],
+      sensor2: [],
+      sensor3: [],
+      sensor4: [],
+      sensor5: [],
+    });
   };
 
   const handleCharacteristicValueChanged = (event: Event) => {
@@ -87,12 +135,26 @@ const BLEProvider = ({ children }: PropsWithChildren) => {
         .replace(';', '')
         .split(':')
         .map(value => parseInt(value, 16));
+      // [timestamp, sensor0, sensor1, sensor2, sensor3, sensor4, sensor5]
       const sensorData: SensorData = {
-        timestamp: listOfValues[0],
-        sensorValues: listOfValues.slice(1),
+        timestamp: [...allData.timestamp, listOfValues[0]],
+        sensor0: [...allData.sensor0, listOfValues[1]],
+        sensor1: [...allData.sensor1, listOfValues[2]],
+        sensor2: [...allData.sensor2, listOfValues[3]],
+        sensor3: [...allData.sensor3, listOfValues[4]],
+        sensor4: [...allData.sensor4, listOfValues[5]],
+        sensor5: [...allData.sensor5, listOfValues[6]],
       };
-      setData(sensorData);
-      setAllData(prev => [...prev, sensorData]);
+      setData({
+        timestamp: listOfValues[0],
+        sensor0: listOfValues[1],
+        sensor1: listOfValues[2],
+        sensor2: listOfValues[3],
+        sensor3: listOfValues[4],
+        sensor4: listOfValues[5],
+        sensor5: listOfValues[6],
+      });
+      setAllData(sensorData);
     } else {
       console.error('No value in characteristic');
     }
