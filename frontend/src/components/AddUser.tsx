@@ -46,7 +46,7 @@ export default function AddUser() {
     event.preventDefault();
 
     try {
-      const userResponse = await fetch('http://127.0.0.1:8000/api/users/', {
+      const userResponse = await fetch('http://127.0.0.1:8000/api/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ export default function AddUser() {
       const user = await userResponse.json();
       const userId = user.id;
 
-      const profileResponse = await fetch(`http://127.0.0.1:8000/api/profiles/`, {
+      const profileResponse = await fetch(`http://127.0.0.1:8000/api/profiles`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
