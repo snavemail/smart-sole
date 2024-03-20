@@ -1,12 +1,30 @@
 import scipy
+import numpy as np
+import pandas as pd
+
+
+def turn_into_df(data) -> pd.DataFrame:
+    df = pd.DataFrame(
+        data,
+        columns=[
+            "timestamp",
+            "sensor0",
+            "sensor1",
+            "sensor2",
+            "sensor3",
+            "sensor4",
+            "sensor5",
+        ],
+    )
+    return df
 
 
 def clean_data_positive(df, columnCount):
     for i in range(0, columnCount):
-        df.loc[df[f"Sensor{i}"] < 255, f"Sensor{i}"] = 0
-        df.loc[df[f"Sensor{i}"] > 768, f"Sensor{i}"] = 0
+        df.loc[df[f"sensor{i}"] < 255, f"sensor{i}"] = 0
+        df.loc[df[f"sensor{i}"] > 768, f"sensor{i}"] = 0
         df.loc[
-            (df[f"Sensor{i}"] >= 255) & (df[f"Sensor{i}"] <= 768), f"Sensor{i}"
+            (df[f"sensor{i}"] >= 255) & (df[f"sensor{i}"] <= 768), f"sensor{i}"
         ] -= 255
     return df
 
@@ -16,7 +34,7 @@ def peak_detection(df):
     peak_indices = []
     steps = []
     for i in range(6):
-        sensor_data.append(df[f"Sensor{i}"])
+        sensor_data.append(df[f"sensor{i}"])
     for sensor in sensor_data:
         peak_indices.append(
             scipy.signal.find_peaks(sensor, height=None, distance=3)[0].tolist()
@@ -59,9 +77,9 @@ def average_step(df, steps):
     average_step = {i: 0 for i in range(6)}
     for step in steps:
         for i in range(6):
-            heel_time = df["Timestamp"][step[2]].values[0].astype(int)
-            if i != 2 and len(df["Timestamp"][step[i]].values) > 0:
-                time_stamp = df["Timestamp"][step[i]].values[0].astype(int)
+            heel_time = df["timestamp"][step[2]].values[0].astype(int)
+            if i != 2 and len(df["timestamp"][step[i]].values) > 0:
+                time_stamp = df["timestamp"][step[i]].values[0].astype(int)
                 average_step[i] += time_stamp - heel_time
     for step in average_step:
         average_step[step] = average_step[step] / len(steps)
