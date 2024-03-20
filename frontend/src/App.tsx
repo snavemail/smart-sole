@@ -27,7 +27,7 @@ function App() {
             <Route
               index
               element={
-                validData ? <Navigate to='/user' replace /> : <Navigate to='/search' replace />
+                validData ? <Navigate to='/profile' replace /> : <Navigate to='/search' replace />
               }
             />
             <Route path='search' element={<SearchPage />} />
