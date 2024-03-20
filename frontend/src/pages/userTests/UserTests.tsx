@@ -11,7 +11,7 @@ export default function UserTests() {
   useEffect(() => {
     const fetchUserTests = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/get-user-tests/${profile.id}`);
+        const response = await fetch(`http://127.0.0.1:8000/api/profiles/${profile.id}/tests`);
         const data = await response.json();
         setUserTests(data);
       } catch (error) {

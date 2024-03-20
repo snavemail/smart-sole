@@ -37,7 +37,7 @@ export default function SearchPage() {
   const handleChange = async (selectedOption: SearchUser | null) => {
     if (selectedOption) {
       const response = await axios.get(
-        `http://127.0.0.1:8000/api/get-user-profile/${selectedOption.value.id}`,
+        `http://127.0.0.1:8000/api/profile/${selectedOption.value.id}`,
       );
       setProfileData(selectedOption.value, response.data);
       navigate(`/profile`);
