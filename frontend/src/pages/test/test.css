@@ -133,3 +133,16 @@
   color: var(--highlight);
   background-color: rgb(163, 163, 163);
 }
+
+.data-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 20px;
+}
+
+.nivo-graph {
+  width: 600px; /* Make the graph fill its container */
+  height: 600px; /* Make the graph fill its container */
+}

@@ -52,3 +52,9 @@ export type Size = {
   unit: string;
   size: string;
 };
+
+export type NivoGraphData = {
+  id: string;
+  color: string;
+  data: { x: number; y: number }[];
+};

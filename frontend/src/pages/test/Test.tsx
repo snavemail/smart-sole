@@ -2,59 +2,126 @@ import React, { useEffect, useState } from 'react';
 import './test.css';
 import FeetIcon from '../../icons/FeetIcon';
 import { getCircleStyles } from '../../utils';
-import { SensorData, SensorDatum } from '../../types';
+import { SensorData } from '../../types';
 import { useBle } from '../../hooks/useBle';
 import { errorToast, successToast } from '../../toasts';
 import { ToastContainer } from 'react-toastify';
 import { useProfile } from '../../hooks/useProfile';
+import MyResponsiveLine from '../../components/NivoGraph';
 
 export default function Test() {
+  const startTime = new Date().getTime();
   const { data, allData } = useBle();
   const { profile } = useProfile();
   const [allSensorData, setAllSensorData] = useState<SensorData>({
-    timestamp: [],
-    sensor0: [],
-    sensor1: [],
-    sensor2: [],
-    sensor3: [],
-    sensor4: [],
-    sensor5: [],
+    timestamp: [new Date().getTime()],
+    sensor0: [0],
+    sensor1: [0],
+    sensor2: [0],
+    sensor3: [0],
+    sensor4: [0],
+    sensor5: [0],
   });
-  const [leftSensorData, setLeftSensorData] = useState<SensorDatum>({
-    timestamp: new Date().getTime(),
-    sensor0: 0,
-    sensor1: 0,
-    sensor2: 0,
-    sensor3: 0,
-    sensor4: 0,
-    sensor5: 0,
-  });
+  const [nivoGraphData, setNivoGraphData] = useState<any>([
+    {
+      id: 'sensor0',
+      color: 'hsl(0, 70%, 50%)',
+      data: [{ x: 0, y: 0 }],
+    },
+    {
+      id: 'sensor1',
+      color: 'hsl(120, 70%, 50%)',
+      data: [{ x: 0, y: 0 }],
+    },
+    {
+      id: 'sensor2',
+      color: 'hsl(240, 70%, 50%)',
+      data: [{ x: 0, y: 0 }],
+    },
+    {
+      id: 'sensor3',
+      color: 'hsl(60, 70%, 50%)',
+      data: [{ x: 0, y: 0 }],
+    },
+    {
+      id: 'sensor4',
+      color: 'hsl(180, 70%, 50%)',
+      data: [{ x: 0, y: 0 }],
+    },
+    {
+      id: 'sensor5',
+      color: 'hsl(300, 70%, 50%)',
+      data: [{ x: 0, y: 0 }],
+    },
+  ]);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
       const newTimestamp = new Date().getTime();
 
-      const newLeftSensorValues = Array.from({ length: 6 }, () => Math.floor(Math.random() * 1001));
+      const newLeftSensorValues = Array.from({ length: 6 }, () => Math.floor(Math.random() * 1000));
 
-      setLeftSensorData({
-        timestamp: newTimestamp,
-        sensor0: newLeftSensorValues[0],
-        sensor1: newLeftSensorValues[1],
-        sensor2: newLeftSensorValues[2],
-        sensor3: newLeftSensorValues[3],
-        sensor4: newLeftSensorValues[4],
-        sensor5: newLeftSensorValues[5],
-      });
       setAllSensorData({
-        timestamp: [...allSensorData.timestamp, leftSensorData.timestamp],
-        sensor0: [...allSensorData.sensor0, leftSensorData.sensor0],
-        sensor1: [...allSensorData.sensor1, leftSensorData.sensor1],
-        sensor2: [...allSensorData.sensor2, leftSensorData.sensor2],
-        sensor3: [...allSensorData.sensor3, leftSensorData.sensor3],
-        sensor4: [...allSensorData.sensor4, leftSensorData.sensor4],
-        sensor5: [...allSensorData.sensor5, leftSensorData.sensor5],
+        timestamp: [...allSensorData.timestamp, newTimestamp],
+        sensor0: [...allSensorData.sensor0, newLeftSensorValues[0]],
+        sensor1: [...allSensorData.sensor1, newLeftSensorValues[1]],
+        sensor2: [...allSensorData.sensor2, newLeftSensorValues[2]],
+        sensor3: [...allSensorData.sensor3, newLeftSensorValues[3]],
+        sensor4: [...allSensorData.sensor4, newLeftSensorValues[4]],
+        sensor5: [...allSensorData.sensor5, newLeftSensorValues[5]],
       });
+
+      setNivoGraphData([
+        {
+          id: 'sensor0',
+          color: 'hsl(0, 70%, 50%)',
+          data: allSensorData.sensor0.map((value, index) => ({
+            x: allSensorData.timestamp[index] - startTime,
+            y: value,
+          })),
+        },
+        {
+          id: 'sensor1',
+          color: 'hsl(120, 70%, 50%)',
+          data: allSensorData.sensor1.map((value, index) => ({
+            x: allSensorData.timestamp[index] - startTime,
+            y: value,
+          })),
+        },
+        {
+          id: 'sensor2',
+          color: 'hsl(240, 70%, 50%)',
+          data: allSensorData.sensor2.map((value, index) => ({
+            x: allSensorData.timestamp[index] - startTime,
+            y: value,
+          })),
+        },
+        {
+          id: 'sensor3',
+          color: 'hsl(60, 70%, 50%)',
+          data: allSensorData.sensor3.map((value, index) => ({
+            x: allSensorData.timestamp[index] - startTime,
+            y: value,
+          })),
+        },
+        {
+          id: 'sensor4',
+          color: 'hsl(180, 70%, 50%)',
+          data: allSensorData.sensor4.map((value, index) => ({
+            x: allSensorData.timestamp[index] - startTime,
+            y: value,
+          })),
+        },
+        {
+          id: 'sensor5',
+          color: 'hsl(300, 70%, 50%)',
+          data: allSensorData.sensor5.map((value, index) => ({
+            x: allSensorData.timestamp[index] - startTime,
+            y: value,
+          })),
+        },
+      ]);
     }, 1000);
     return () => clearInterval(interval);
   }, [
@@ -65,13 +132,7 @@ export default function Test() {
     allSensorData.sensor4,
     allSensorData.sensor5,
     allSensorData.timestamp,
-    leftSensorData.sensor0,
-    leftSensorData.sensor1,
-    leftSensorData.sensor2,
-    leftSensorData.sensor3,
-    leftSensorData.sensor4,
-    leftSensorData.sensor5,
-    leftSensorData.timestamp,
+    startTime,
   ]);
 
   const maxValue = 1000;
@@ -142,52 +203,57 @@ export default function Test() {
           <span>Your are connected!</span>
         </h1>
       </div>
-      <div className='foot-div'>
-        <div className='sensor-container timestamp'>
-          {sensorData.timestamp[sensorData.timestamp.length - 1]}
+      <div className='data-div'>
+        <div className='foot-div'>
+          <div className='sensor-container timestamp'>
+            {sensorData.timestamp[sensorData.timestamp.length - 1]}
+          </div>
+          <FeetIcon />
+          <div className={`sensor-container sensor-left-0`}>
+            {sensorData.sensor0[sensorData.sensor0.length - 1]}
+            <div
+              className='sensor-circle'
+              style={getCircleStyles(sensorData.sensor0[sensorData.sensor0.length - 1], maxValue)}
+            />
+          </div>
+          <div className={`sensor-container sensor-left-1`}>
+            {sensorData.sensor1[sensorData.sensor1.length - 1]}
+            <div
+              className='sensor-circle'
+              style={getCircleStyles(sensorData.sensor1[sensorData.sensor1.length - 1], maxValue)}
+            />
+          </div>
+          <div className={`sensor-container sensor-left-2`}>
+            {sensorData.sensor2[sensorData.sensor2.length - 1]}
+            <div
+              className='sensor-circle'
+              style={getCircleStyles(sensorData.sensor2[sensorData.sensor2.length - 1], maxValue)}
+            />
+          </div>
+          <div className={`sensor-container sensor-left-3`}>
+            {sensorData.sensor3[sensorData.sensor3.length - 1]}
+            <div
+              className='sensor-circle'
+              style={getCircleStyles(sensorData.sensor3[sensorData.sensor3.length - 1], maxValue)}
+            />
+          </div>
+          <div className={`sensor-container sensor-left-4`}>
+            {sensorData.sensor4[sensorData.sensor4.length - 1]}
+            <div
+              className='sensor-circle'
+              style={getCircleStyles(sensorData.sensor4[sensorData.sensor4.length - 1], maxValue)}
+            />
+          </div>
+          <div className={`sensor-container sensor-left-5`}>
+            {sensorData.sensor5[sensorData.sensor5.length - 1]}
+            <div
+              className='sensor-circle'
+              style={getCircleStyles(sensorData.sensor5[sensorData.sensor5.length - 1], maxValue)}
+            />
+          </div>
         </div>
-        <FeetIcon />
-        <div className={`sensor-container sensor-left-0`}>
-          {leftSensorData.sensor0}
-          <div
-            className='sensor-circle'
-            style={getCircleStyles(leftSensorData.sensor0, maxValue)}
-          />
-        </div>
-        <div className={`sensor-container sensor-left-1`}>
-          {leftSensorData.sensor1}
-          <div
-            className='sensor-circle'
-            style={getCircleStyles(leftSensorData.sensor1, maxValue)}
-          />
-        </div>
-        <div className={`sensor-container sensor-left-2`}>
-          {leftSensorData.sensor2}
-          <div
-            className='sensor-circle'
-            style={getCircleStyles(leftSensorData.sensor2, maxValue)}
-          />
-        </div>
-        <div className={`sensor-container sensor-left-3`}>
-          {leftSensorData.sensor3}
-          <div
-            className='sensor-circle'
-            style={getCircleStyles(leftSensorData.sensor3, maxValue)}
-          />
-        </div>
-        <div className={`sensor-container sensor-left-4`}>
-          {leftSensorData.sensor4}
-          <div
-            className='sensor-circle'
-            style={getCircleStyles(leftSensorData.sensor4, maxValue)}
-          />
-        </div>
-        <div className={`sensor-container sensor-left-5`}>
-          {leftSensorData.sensor5}
-          <div
-            className='sensor-circle'
-            style={getCircleStyles(leftSensorData.sensor5, maxValue)}
-          />
+        <div className='nivo-graph'>
+          <MyResponsiveLine data={nivoGraphData} />
         </div>
       </div>
       <div className='next-div'>
