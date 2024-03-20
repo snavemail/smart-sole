@@ -9,13 +9,32 @@ from .serializers import (
     AverageStepSerializer,
     AverageSensorReadingSerializer,
 )
+from bleapp.helpers.functions import (
+    average_step,
+    clean_data_positive,
+    peak_detection,
+    turn_into_df,
+)
 
 
 @api_view(["GET", "POST"])
 def receive_sensor_data(request):
-    data = request.data
+    data = request.data["data"]
+    data_frame = turn_into_df(data)
+    cleanData = clean_data_positive(data_frame, 6)
+    steps = peak_detection(cleanData)
 
-    print(data)
+    # clean up steps here
+
+    # take average on cleaned up steps
+    avg_step = average_step(cleanData, steps)
+
+    print(cleanData)
+    print(steps)
+    print("length of steps", len(steps))
+    print("*******************")
+    print(avg_step)
+
     return Response({"message": "Data received"}, status=200)
 
 
@@ -142,7 +161,7 @@ def test_retrieve_update_destroy(request, pk):
 
 
 @api_view(["GET"])
-def get_user_tests(request, profile_id):
+def user_tests(request, profile_id):
     tests = Test.objects.filter(profile_id=profile_id)
     serializer = TestSerializer(tests, many=True)
     return Response(serializer.data)
