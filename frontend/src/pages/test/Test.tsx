@@ -4,12 +4,13 @@ import FeetIcon from '../../icons/FeetIcon';
 import { getCircleStyles } from '../../utils';
 import { SensorData, SensorDatum } from '../../types';
 import { useBle } from '../../hooks/useBle';
-import { useParams } from 'react-router-dom';
 import { errorToast, successToast } from '../../toasts';
 import { ToastContainer } from 'react-toastify';
+import { useProfile } from '../../hooks/useProfile';
 
 export default function Test() {
   const { data, allData } = useBle();
+  const { profile } = useProfile();
   const [allSensorData, setAllSensorData] = useState<SensorData>({
     timestamp: [],
     sensor0: [],
@@ -28,8 +29,7 @@ export default function Test() {
     sensor4: 0,
     sensor5: 0,
   });
-
-  const { profileId } = useParams();
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -79,6 +79,7 @@ export default function Test() {
   const sensorData = allData.timestamp.length > 0 ? allData : allSensorData;
 
   const finishTest = async () => {
+    setLoading(true);
     try {
       const duration =
         sensorData.timestamp[sensorData.timestamp.length - 1] - sensorData.timestamp[0];
@@ -91,9 +92,11 @@ export default function Test() {
         },
         body: JSON.stringify({
           duration,
-          profile_id: profileId,
+          profile_id: profile.id,
         }),
       });
+
+      console.log(testResponse);
 
       if (!testResponse.ok) {
         throw new Error('Failed to create test');
@@ -102,7 +105,7 @@ export default function Test() {
       const testId = (await testResponse.json()).id;
 
       // make a post request of the data to save average data
-      await fetch('http://127.0.0.1:8000/api/data', {
+      const dataResponse = await fetch('http://127.0.0.1:8000/api/data', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -113,9 +116,22 @@ export default function Test() {
         }),
       });
 
+      console.log(dataResponse);
+
       successToast('Test finished successfully');
     } catch (error) {
       errorToast('Error finishing test');
+    } finally {
+      setAllSensorData({
+        timestamp: [],
+        sensor0: [],
+        sensor1: [],
+        sensor2: [],
+        sensor3: [],
+        sensor4: [],
+        sensor5: [],
+      });
+      setLoading(false);
     }
   };
 
@@ -175,7 +191,9 @@ export default function Test() {
         </div>
       </div>
       <div className='next-div'>
-        <button onClick={finishTest}>Finish</button>
+        <button onClick={finishTest} disabled={loading}>
+          Finish
+        </button>
       </div>
       <ToastContainer />
     </div>
