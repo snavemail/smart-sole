@@ -84,3 +84,18 @@ def average_step(df, steps):
     for step in average_step:
         average_step[step] = average_step[step] / len(steps)
     return average_step
+
+
+def basic_stats(list: list, confidence: float):
+    arr = np.array(list)
+    mean = np.mean(arr)
+    std_dev = np.std(arr)
+
+    npstd_dev = std_dev
+    npmean = mean
+
+    lowerBound, upperBound = scipy.stats.t.interval(
+        1 - confidence, len(list) - 1, loc=npmean, scale=npstd_dev
+    )
+    median = np.median(arr)
+    return mean, lowerBound, upperBound, std_dev

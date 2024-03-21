@@ -14,7 +14,10 @@ from bleapp.helpers.functions import (
     clean_data_positive,
     peak_detection,
     turn_into_df,
+    basic_stats,
 )
+
+CONFIDENCE = 0.95
 
 
 @api_view(["GET", "POST"])
@@ -25,15 +28,21 @@ def receive_sensor_data(request):
     steps = peak_detection(cleanData)
 
     # clean up steps here
+    print("length", len(steps))
+    if len(steps) > 10:
+        avg_step = average_step(cleanData, steps)
+        print(avg_step)
+        return Response({"message": "60 data received"}, status=200)
+    return Response({"message": "Not 60 yet"}, status=201)
 
     # take average on cleaned up steps
-    avg_step = average_step(cleanData, steps)
+    # avg_step = average_step(cleanData, steps)
 
-    print(cleanData)
-    print(steps)
-    print("length of steps", len(steps))
-    print("*******************")
-    print(avg_step)
+    # print(cleanData)
+    # print(steps)
+    # print("length of steps", len(steps))
+    # print("*******************")
+    # print(avg_step)
 
     return Response({"message": "Data received"}, status=200)
 

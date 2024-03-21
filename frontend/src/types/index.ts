@@ -9,13 +9,7 @@ export type SensorDatum = {
 };
 
 export type SensorData = {
-  timestamp: number[];
-  sensor0: number[];
-  sensor1: number[];
-  sensor2: number[];
-  sensor3: number[];
-  sensor4: number[];
-  sensor5: number[];
+  [key: string]: number[];
 };
 
 export type User = {

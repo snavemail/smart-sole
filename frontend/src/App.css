@@ -1,6 +1,7 @@
 .ss-container {
   display: flex;
   align-items: stretch;
+  /* flex-direction: column; */
 }
 
 .main-content {

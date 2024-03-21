@@ -7,7 +7,7 @@ import { useBle } from '../../hooks/useBle';
 import { errorToast, successToast } from '../../toasts';
 import { ToastContainer } from 'react-toastify';
 import { useProfile } from '../../hooks/useProfile';
-import MyResponsiveLine from '../../components/NivoGraph';
+import { convertTimestampToDatetime } from '../../utils/formatdate';
 
 export default function Test() {
   const startTime = new Date().getTime();
@@ -22,38 +22,7 @@ export default function Test() {
     sensor4: [0],
     sensor5: [0],
   });
-  const [nivoGraphData, setNivoGraphData] = useState<any>([
-    {
-      id: 'sensor0',
-      color: 'hsl(0, 70%, 50%)',
-      data: [{ x: 0, y: 0 }],
-    },
-    {
-      id: 'sensor1',
-      color: 'hsl(120, 70%, 50%)',
-      data: [{ x: 0, y: 0 }],
-    },
-    {
-      id: 'sensor2',
-      color: 'hsl(240, 70%, 50%)',
-      data: [{ x: 0, y: 0 }],
-    },
-    {
-      id: 'sensor3',
-      color: 'hsl(60, 70%, 50%)',
-      data: [{ x: 0, y: 0 }],
-    },
-    {
-      id: 'sensor4',
-      color: 'hsl(180, 70%, 50%)',
-      data: [{ x: 0, y: 0 }],
-    },
-    {
-      id: 'sensor5',
-      color: 'hsl(300, 70%, 50%)',
-      data: [{ x: 0, y: 0 }],
-    },
-  ]);
+
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -71,57 +40,6 @@ export default function Test() {
         sensor4: [...allSensorData.sensor4, newLeftSensorValues[4]],
         sensor5: [...allSensorData.sensor5, newLeftSensorValues[5]],
       });
-
-      setNivoGraphData([
-        {
-          id: 'sensor0',
-          color: 'hsl(0, 70%, 50%)',
-          data: allSensorData.sensor0.map((value, index) => ({
-            x: allSensorData.timestamp[index] - startTime,
-            y: value,
-          })),
-        },
-        {
-          id: 'sensor1',
-          color: 'hsl(120, 70%, 50%)',
-          data: allSensorData.sensor1.map((value, index) => ({
-            x: allSensorData.timestamp[index] - startTime,
-            y: value,
-          })),
-        },
-        {
-          id: 'sensor2',
-          color: 'hsl(240, 70%, 50%)',
-          data: allSensorData.sensor2.map((value, index) => ({
-            x: allSensorData.timestamp[index] - startTime,
-            y: value,
-          })),
-        },
-        {
-          id: 'sensor3',
-          color: 'hsl(60, 70%, 50%)',
-          data: allSensorData.sensor3.map((value, index) => ({
-            x: allSensorData.timestamp[index] - startTime,
-            y: value,
-          })),
-        },
-        {
-          id: 'sensor4',
-          color: 'hsl(180, 70%, 50%)',
-          data: allSensorData.sensor4.map((value, index) => ({
-            x: allSensorData.timestamp[index] - startTime,
-            y: value,
-          })),
-        },
-        {
-          id: 'sensor5',
-          color: 'hsl(300, 70%, 50%)',
-          data: allSensorData.sensor5.map((value, index) => ({
-            x: allSensorData.timestamp[index] - startTime,
-            y: value,
-          })),
-        },
-      ]);
     }, 1000);
     return () => clearInterval(interval);
   }, [
@@ -142,28 +60,28 @@ export default function Test() {
   const finishTest = async () => {
     setLoading(true);
     try {
-      const duration =
-        sensorData.timestamp[sensorData.timestamp.length - 1] - sensorData.timestamp[0];
+      // const duration =
+      //   sensorData.timestamp[sensorData.timestamp.length - 1] - sensorData.timestamp[0];
 
-      // Make a POST request to create the test
-      const testResponse = await fetch('http://127.0.0.1:8000/api/tests', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          duration,
-          profile_id: profile.id,
-        }),
-      });
+      // // Make a POST request to create the test
+      // const testResponse = await fetch('http://127.0.0.1:8000/api/tests', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({
+      //     duration,
+      //     profile_id: profile.id,
+      //   }),
+      // });
 
-      console.log(testResponse);
+      // console.log(testResponse);
 
-      if (!testResponse.ok) {
-        throw new Error('Failed to create test');
-      }
+      // if (!testResponse.ok) {
+      //   throw new Error('Failed to create test');
+      // }
 
-      const testId = (await testResponse.json()).id;
+      // const testId = (await testResponse.json()).id;
 
       // make a post request of the data to save average data
       const dataResponse = await fetch('http://127.0.0.1:8000/api/data', {
@@ -172,17 +90,25 @@ export default function Test() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          test_id: testId,
+          // test_id: testId,
           data: allSensorData,
         }),
       });
-
       console.log(dataResponse);
-
-      successToast('Test finished successfully');
+      if (dataResponse.status === 200) {
+        successToast('Test finished successfully');
+        setAllSensorData({
+          timestamp: [],
+          sensor0: [],
+          sensor1: [],
+          sensor2: [],
+          sensor3: [],
+          sensor4: [],
+          sensor5: [],
+        });
+      }
     } catch (error) {
       errorToast('Error finishing test');
-    } finally {
       setAllSensorData({
         timestamp: [],
         sensor0: [],
@@ -192,6 +118,7 @@ export default function Test() {
         sensor4: [],
         sensor5: [],
       });
+    } finally {
       setLoading(false);
     }
   };
@@ -209,51 +136,17 @@ export default function Test() {
             {sensorData.timestamp[sensorData.timestamp.length - 1]}
           </div>
           <FeetIcon />
-          <div className={`sensor-container sensor-left-0`}>
-            {sensorData.sensor0[sensorData.sensor0.length - 1]}
-            <div
-              className='sensor-circle'
-              style={getCircleStyles(sensorData.sensor0[sensorData.sensor0.length - 1], maxValue)}
-            />
-          </div>
-          <div className={`sensor-container sensor-left-1`}>
-            {sensorData.sensor1[sensorData.sensor1.length - 1]}
-            <div
-              className='sensor-circle'
-              style={getCircleStyles(sensorData.sensor1[sensorData.sensor1.length - 1], maxValue)}
-            />
-          </div>
-          <div className={`sensor-container sensor-left-2`}>
-            {sensorData.sensor2[sensorData.sensor2.length - 1]}
-            <div
-              className='sensor-circle'
-              style={getCircleStyles(sensorData.sensor2[sensorData.sensor2.length - 1], maxValue)}
-            />
-          </div>
-          <div className={`sensor-container sensor-left-3`}>
-            {sensorData.sensor3[sensorData.sensor3.length - 1]}
-            <div
-              className='sensor-circle'
-              style={getCircleStyles(sensorData.sensor3[sensorData.sensor3.length - 1], maxValue)}
-            />
-          </div>
-          <div className={`sensor-container sensor-left-4`}>
-            {sensorData.sensor4[sensorData.sensor4.length - 1]}
-            <div
-              className='sensor-circle'
-              style={getCircleStyles(sensorData.sensor4[sensorData.sensor4.length - 1], maxValue)}
-            />
-          </div>
-          <div className={`sensor-container sensor-left-5`}>
-            {sensorData.sensor5[sensorData.sensor5.length - 1]}
-            <div
-              className='sensor-circle'
-              style={getCircleStyles(sensorData.sensor5[sensorData.sensor5.length - 1], maxValue)}
-            />
-          </div>
-        </div>
-        <div className='nivo-graph'>
-          <MyResponsiveLine data={nivoGraphData} />
+          {Object.keys(sensorData)
+            .filter(key => key !== 'timestamp')
+            .map((key, index) => (
+              <div key={index} className={`sensor-container sensor-left-${index}`}>
+                {sensorData[key][sensorData[key].length - 1]}
+                <div
+                  className='sensor-circle'
+                  style={getCircleStyles(sensorData[key][sensorData[key].length - 1], maxValue)}
+                />
+              </div>
+            ))}
         </div>
       </div>
       <div className='next-div'>
