@@ -1,4 +1,4 @@
-from .models import User, Profile, Test, AverageStep, AverageSensorReading
+from .models import User, Profile, Test, Step, Sensor, AverageSensorReading
 from rest_framework import serializers
 
 
@@ -20,9 +20,15 @@ class TestSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class AverageStepSerializer(serializers.ModelSerializer):
+class StepSerializer(serializers.ModelSerializer):
     class Meta:
-        model = AverageStep
+        model = Step
+        fields = "__all__"
+
+
+class SensorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Sensor
         fields = "__all__"
 
 
