@@ -28,7 +28,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "bleapp",
     "rest_framework",
+    "rest_framework_simplejwt",
     "corsheaders",
+    "smartsole",
+    "smartsole.user",
 ]
 
 MIDDLEWARE = [
@@ -41,6 +44,13 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
+}
 
 ROOT_URLCONF = "bleproject.urls"
 
@@ -69,9 +79,12 @@ WSGI_APPLICATION = "bleproject.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("POSTGRES_NAME", "postgres"),
-        "USER": os.environ.get("POSTGRES_USER", "postgres"),
-        "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "1212potato"),
+        # "NAME": os.environ.get("POSTGRES_NAME", "postgres"),
+        "NAME": "postgres",
+        # "USER": os.environ.get("POSTGRES_USER", "postgres"),
+        "USER": "postgres",
+        # "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "1212potato"),
+        "PASSWORD": "1212potato",
         "HOST": "localhost",
         "PORT": 5432,
     }
@@ -125,3 +138,5 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+AUTH_USER_MODEL = "smartsole_user.User"
