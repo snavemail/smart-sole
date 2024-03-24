@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "smartsole",
     "smartsole.user",
+    "smartsole.auth",
 ]
 
 MIDDLEWARE = [
