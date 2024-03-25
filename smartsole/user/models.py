@@ -6,7 +6,6 @@ from django.contrib.auth.models import (
 )
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
-from django.http import Http404
 from smartsole.abstract.models import AbstractModel, AbstractManager
 
 
