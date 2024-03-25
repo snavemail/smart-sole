@@ -1,0 +1,12 @@
+.error-toast {
+  width: 100%;
+  background-color: var(--error);
+  color: var(--background);
+}
+.error-toast svg {
+  fill: var(--background);
+}
+
+.Toastify__toast-container {
+  width: 100%;
+}
