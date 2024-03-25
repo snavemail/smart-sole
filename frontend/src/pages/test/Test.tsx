@@ -4,7 +4,7 @@ import FeetIcon from '../../icons/FeetIcon';
 import { getCircleStyles } from '../../utils';
 import { SensorData } from '../../types';
 import { useBle } from '../../hooks/useBle';
-import { errorToast, successToast } from '../../toasts';
+import { authErrorToast, successToast } from '../../toasts';
 import { ToastContainer } from 'react-toastify';
 import { useProfile } from '../../hooks/useProfile';
 import { convertTimestampToDatetime } from '../../utils/formatdate';
@@ -108,7 +108,7 @@ export default function Test() {
         });
       }
     } catch (error) {
-      errorToast('Error finishing test');
+      authErrorToast('Error finishing test');
       setAllSensorData({
         timestamp: [],
         sensor0: [],
