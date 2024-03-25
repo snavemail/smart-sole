@@ -1,48 +1,52 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useUserActions } from '../../hooks/user.actions';
 import '../../css/authentication.css';
+import { validateLoginPage } from '../../utils/validateField';
+import EyeIcon from '../../icons/EyeIcon';
+import EyeOffIcon from '../../icons/EyeOffIcon';
+import { authErrorToast } from '../../toasts';
 
 export default function LoginForm() {
-  const [validated, setValidated] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [form, setForm] = useState({
     email: '',
     password: '',
-    first_name: '',
-    last_name: '',
   });
-  const [errors, setErrors] = useState<string[]>([]);
+  const [inputErrors, setInputErrors] = useState({
+    email: '',
+    password: '',
+  });
+
   const userActions = useUserActions();
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(prevShowPassword => !prevShowPassword);
+  };
+
+  const handleInputBlur = (fieldName: 'email' | 'password') => {
+    const errorMessage = validateLoginPage(form, fieldName, form[fieldName]);
+    setInputErrors(prevErrors => ({
+      ...prevErrors,
+      [fieldName]: errorMessage,
+    }));
+  };
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    setErrors([]);
 
     const loginForm = event.currentTarget;
 
     if (!loginForm.checkValidity()) {
-      const fieldErrors: string[] = [];
-      loginForm.querySelectorAll('input, select, textarea').forEach((field: any) => {
-        if (!field.checkValidity()) {
-          let errorMessage = field.validationMessage;
-          if (field.validity.valueMissing) {
-            errorMessage = `Please fill out ${field.labels[0].textContent.toLowerCase()} field`;
-          }
-          fieldErrors.push(errorMessage);
-        }
-      });
-      setErrors(fieldErrors);
       event.stopPropagation();
       return;
     }
 
-    setValidated(true);
-
     const data = {
       email: form.email,
       password: form.password,
-      first_name: form.first_name,
-      last_name: form.last_name,
     };
+
     try {
       await userActions.login(data);
     } catch (err: any) {
@@ -52,44 +56,68 @@ export default function LoginForm() {
         if (detail) {
           errorMessages.push(`${detail}`);
         }
-
-        setErrors(errorMessages);
+        authErrorToast(errorMessages.join(', '));
       }
     }
   };
 
+  useEffect(() => {
+    if (form.email && form.password && !inputErrors.email && !inputErrors.password) {
+      setButtonDisabled(false);
+    } else {
+      setButtonDisabled(true);
+    }
+  }, [form, inputErrors]);
+
   return (
-    <form noValidate onSubmit={handleSubmit}>
+    <form noValidate onSubmit={handleSubmit} action='#'>
+      <h1>Login</h1>
       <div className='form-group'>
-        <label htmlFor='email'>Email</label>
         <input
           type='email'
-          className={`form-control ${errors.length && !form.email ? 'input-error' : ''}`}
+          className={`form-control ${inputErrors.email ? 'input-error' : ''}`}
           id='email'
           required
+          autoFocus
+          onBlur={() => handleInputBlur('email')}
           onChange={e => setForm({ ...form, email: e.target.value })}
           placeholder='Email'
         />
+        {inputErrors.email && <div className='error-message'>{inputErrors.email}</div>}
       </div>
       <div className='form-group'>
-        <label htmlFor='password'>Password</label>
-        <input
-          type='password'
-          className={`form-control ${errors.length && !form.password ? 'input-error' : ''}`}
-          id='password'
-          required
-          onChange={e => setForm({ ...form, password: e.target.value })}
-          placeholder='Password'
-        />
-      </div>
-      <button className='btn-auth btn'>Register</button>
-      {errors && (
-        <div className='alert alert-danger'>
-          {errors.map((errorMessage, index) => (
-            <div key={index}>* {errorMessage}</div>
-          ))}
+        <div className={`password-wrapper ${inputErrors.password ? 'input-error' : ''}`}>
+          <input
+            type={showPassword ? 'text' : 'password'}
+            className={`form-control `}
+            id='password'
+            required
+            onBlur={() => handleInputBlur('password')}
+            onChange={e => setForm({ ...form, password: e.target.value })}
+            placeholder='Password'
+          />
+          <button type='button' className='show-password-btn' onClick={togglePasswordVisibility}>
+            {showPassword ? <EyeOffIcon /> : <EyeIcon />}
+          </button>
         </div>
-      )}
+
+        {inputErrors.password && <div className='error-message'>{inputErrors.password}</div>}
+      </div>
+      <div className='remember-forgot'>
+        <label htmlFor=''>
+          <input type='checkbox' />
+          Remember me
+        </label>
+        <a href='#'>Forgot Password?</a>
+      </div>
+      <button className={`btn-auth btn`} disabled={buttonDisabled}>
+        Sign In
+      </button>
+      <div className='register-link'>
+        <p>
+          Don't have an account? <a href='/register'>Register</a>
+        </p>
+      </div>
     </form>
   );
 }

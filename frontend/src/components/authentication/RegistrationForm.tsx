@@ -1,47 +1,86 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useUserActions } from '../../hooks/user.actions';
 import '../../css/authentication.css';
+import { validateRegisterPage } from '../../utils/validateField';
+import EyeIcon from '../../icons/EyeIcon';
+import EyeOffIcon from '../../icons/EyeOffIcon';
+import { authErrorToast } from '../../toasts';
 
 export default function RegistrationForm() {
-  const [validated, setValidated] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
   const [form, setForm] = useState({
-    email: '',
-    password: '',
     first_name: '',
     last_name: '',
+    email: '',
+    password: '',
+    confirm_password: '',
   });
-  const [errors, setErrors] = useState<string[]>([]);
+  const [inputErrors, setInputErrors] = useState({
+    first_name: '',
+    last_name: '',
+    email: '',
+    password: '',
+    confirm_password: '',
+  });
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
   const userActions = useUserActions();
+
+  const handleInputBlur = (
+    fieldName: 'email' | 'password' | 'first_name' | 'last_name' | 'confirm_password',
+  ) => {
+    const errorMessage = validateRegisterPage(form, fieldName, form[fieldName]);
+    setInputErrors(prevErrors => ({
+      ...prevErrors,
+      [fieldName]: errorMessage,
+    }));
+    if (fieldName === 'password' && form.password.length === 0) {
+      setInputErrors(prevErrors => ({
+        ...prevErrors,
+        password: 'Password is required',
+      }));
+    } else if (fieldName === 'confirm_password' && form.confirm_password.length === 0) {
+      setInputErrors(prevErrors => ({
+        ...prevErrors,
+        confirm_password: 'Confirm Password is required',
+      }));
+    } else if (
+      (fieldName === 'confirm_password' || fieldName === 'password') &&
+      form.confirm_password === form.password
+    ) {
+      setInputErrors(prevErrors => ({
+        ...prevErrors,
+        confirm_password: '',
+        password: '',
+      }));
+    } else if (
+      (fieldName === 'confirm_password' || fieldName === 'password') &&
+      form.confirm_password !== form.password
+    ) {
+      console.log('passwords match');
+      setInputErrors(prevErrors => ({
+        ...prevErrors,
+        confirm_password: 'Passwords do not match',
+        password: 'Passwords do not match',
+      }));
+    }
+  };
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    setErrors([]);
 
     const registrationForm = event.currentTarget;
 
     if (!registrationForm.checkValidity()) {
-      const fieldErrors: string[] = [];
-      registrationForm.querySelectorAll('input, select, textarea').forEach((field: any) => {
-        if (!field.checkValidity()) {
-          let errorMessage = field.validationMessage;
-          if (field.validity.valueMissing) {
-            errorMessage = `Please fill out ${field.labels[0].textContent.toLowerCase()} field`;
-          }
-          fieldErrors.push(errorMessage);
-        }
-      });
-      setErrors(fieldErrors);
       event.stopPropagation();
       return;
     }
 
-    setValidated(true);
-
     const data = {
-      email: form.email,
-      password: form.password,
       first_name: form.first_name,
       last_name: form.last_name,
+      email: form.email,
+      password: form.password,
     };
     try {
       await userActions.register(data);
@@ -56,66 +95,120 @@ export default function RegistrationForm() {
         if (password) {
           errorMessages.push(`Password: ${password.join(', ')}`);
         }
-
-        setErrors(errorMessages);
+        authErrorToast(errorMessages.join(', '));
       }
     }
   };
 
+  useEffect(() => {
+    if (
+      form.email &&
+      form.password &&
+      form.confirm_password &&
+      form.first_name &&
+      form.last_name &&
+      !inputErrors.email &&
+      !inputErrors.password &&
+      !inputErrors.confirm_password &&
+      !inputErrors.first_name &&
+      !inputErrors.last_name
+    ) {
+      setButtonDisabled(false);
+    } else {
+      setButtonDisabled(true);
+    }
+  }, [form, inputErrors]);
+
   return (
-    <form noValidate onSubmit={handleSubmit}>
+    <form noValidate onSubmit={handleSubmit} autoComplete={'true'}>
+      <h1>Register</h1>
       <div className='form-group'>
-        <label htmlFor='email'>Email</label>
-        <input
-          type='email'
-          className={`form-control ${errors.length && !form.email ? 'input-error' : ''}`}
-          id='email'
-          required
-          onChange={e => setForm({ ...form, email: e.target.value })}
-          placeholder='Email'
-        />
-      </div>
-      <div className='form-group'>
-        <label htmlFor='password'>Password</label>
-        <input
-          type='password'
-          className={`form-control ${errors.length && !form.password ? 'input-error' : ''}`}
-          id='password'
-          required
-          onChange={e => setForm({ ...form, password: e.target.value })}
-          placeholder='Password'
-        />
-      </div>
-      <div className='form-group'>
-        <label htmlFor='first_name'>First Name</label>
         <input
           type='text'
-          className={`form-control ${errors.length && !form.first_name ? 'input-error' : ''}`}
+          className={`form-control ${inputErrors.first_name ? 'input-error' : ''}`}
           id='first_name'
           required
+          autoFocus
+          onBlur={() => handleInputBlur('first_name')}
           onChange={e => setForm({ ...form, first_name: e.target.value })}
           placeholder='First Name'
         />
+        {inputErrors.first_name && <div className='error-message'>{inputErrors.first_name}</div>}
       </div>
       <div className='form-group'>
-        <label htmlFor='last_name'>Last Name</label>
         <input
           type='text'
-          className={`form-control ${errors.length && !form.last_name ? 'input-error' : ''}`}
+          className={`form-control ${inputErrors.last_name ? 'input-error' : ''}`}
           id='last_name'
           required
+          onBlur={() => handleInputBlur('last_name')}
           onChange={e => setForm({ ...form, last_name: e.target.value })}
           placeholder='Last Name'
         />
+        {inputErrors.last_name && <div className='error-message'>{inputErrors.last_name}</div>}
       </div>
-      <button className='btn-auth btn'>Register</button>
-      {errors && (
-        <div className='alert alert-danger'>
-          {errors.map((errorMessage, index) => (
-            <div key={index}>* {errorMessage}</div>
-          ))}
+      <div className='form-group'>
+        <input
+          type='email'
+          className={`form-control ${inputErrors.email ? 'input-error' : ''}`}
+          id='email'
+          required
+          onBlur={() => handleInputBlur('email')}
+          onChange={e => setForm({ ...form, email: e.target.value })}
+          placeholder='Email'
+        />
+        {inputErrors.email && <div className='error-message'>{inputErrors.email}</div>}
+      </div>
+      <div className='form-group'>
+        <div className={`password-wrapper ${inputErrors.password ? 'input-error' : ''}`}>
+          <input
+            type={showPassword ? 'text' : 'password'}
+            className={`form-control `}
+            id='password'
+            required
+            onBlur={() => handleInputBlur('password')}
+            onChange={e => setForm({ ...form, password: e.target.value })}
+            placeholder='Password'
+          />
+          <button
+            type='button'
+            className='show-password-btn'
+            onClick={() => setShowPassword(!showPassword)}>
+            {showPassword ? <EyeOffIcon /> : <EyeIcon />}
+          </button>
         </div>
-      )}
+        {inputErrors.password && <div className='error-message'>{inputErrors.password}</div>}
+      </div>
+      <div className='form-group'>
+        <div className={`password-wrapper ${inputErrors.confirm_password ? 'input-error' : ''}`}>
+          <input
+            type={showConfirmPassword ? 'text' : 'password'}
+            className={`form-control`}
+            id='confirm-password'
+            required
+            onBlur={() => handleInputBlur('confirm_password')}
+            onChange={e => setForm({ ...form, confirm_password: e.target.value })}
+            placeholder='Confirm Password'
+          />
+          <button
+            type='button'
+            className='show-password-btn'
+            onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+            {showConfirmPassword ? <EyeOffIcon /> : <EyeIcon />}
+          </button>
+        </div>
+        {inputErrors.confirm_password && (
+          <div className='error-message'>{inputErrors.confirm_password}</div>
+        )}
+      </div>
+      <button className='btn-auth btn' disabled={buttonDisabled}>
+        Register
+      </button>
+      <div className='register-link'>
+        <p>
+          Already have an account? <a href='/login/'>Sign in</a>
+        </p>
+      </div>
     </form>
   );
 }

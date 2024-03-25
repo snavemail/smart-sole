@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 400px;
+  max-width: 450px;
   margin: 0 auto;
   padding: 20px;
   min-height: 100vh;
@@ -17,4 +17,8 @@
 .auth-form {
   width: 100%;
   font-weight: 900;
+  padding: 40px;
+  box-shadow: 0 2px 4px #00000040;
+  border-radius: 10px;
+  background-color: #fff;
 }
