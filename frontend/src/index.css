@@ -2,9 +2,12 @@
   --background: #f1f1f1;
   --foreground: #1f1f1f;
   --functional: #7d7e75; /* battleship gray */
-  --accent: #a64253; /* Redwood */
-  --pop: #f78e69; /* Coral */
   --functional-light: #d0cdcd;
+  --accent: #a64253; /* Redwood */
+  --accent-light: #b95062; /* Redwood */
+  --pop: #f78e69; /* Coral */
+  --pop-light: #f9a88b; /* Coral */
+
   /* --button-bg: #686666;
   --button-fg: #f5f5f5; */
 

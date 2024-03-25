@@ -52,3 +52,21 @@ export type NivoGraphData = {
   color: string;
   data: { x: number; y: number }[];
 };
+
+export type LoginData = {
+  email: string;
+  password: string;
+};
+
+export type RegisterData = {
+  email: string;
+  password: string;
+  first_name: string;
+  last_name: string;
+};
+
+export type UserData = {
+  refresh: string;
+  access: string;
+  user: User;
+};

@@ -1,0 +1,54 @@
+/* Add this CSS to your component's stylesheet or to a global stylesheet */
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+}
+
+input[type='email'],
+input[type='password'],
+input[type='text'] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  outline: none;
+}
+
+input[type='email']:focus,
+input[type='password']:focus,
+input[type='text']:focus {
+  border-color: var(--pop);
+  border-width: 3px;
+}
+
+.btn-auth {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--pop);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-auth:hover {
+  background-color: var(--pop-light);
+}
+
+.alert {
+  color: red;
+  margin-top: 20px;
+}
+
+.input-error[type='email'],
+.input-error[type='password'],
+.input-error[type='text'] {
+  border: 2px solid red;
+}
