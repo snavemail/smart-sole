@@ -1,5 +1,5 @@
 .error-toast {
-  width: 100%;
+  width: 410px;
   background-color: var(--error);
   color: var(--background);
 }
@@ -8,5 +8,5 @@
 }
 
 .Toastify__toast-container {
-  width: 100%;
+  width: 410px;
 }
