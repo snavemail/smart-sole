@@ -4,9 +4,15 @@
   justify-content: center;
   align-items: center;
   max-width: 450px;
-  margin: 0 auto;
+  width: 420px;
   padding: 20px;
   min-height: 100vh;
+}
+
+@media screen and (max-width: 768px) {
+  .auth-container {
+    width: 100%;
+  }
 }
 
 .logo {
