@@ -24,7 +24,7 @@ class UserManager(BaseUserManager, AbstractManager):
 
         return user
 
-    def create_super_user(self, email, password, **kwargs):
+    def create_superuser(self, email, password, **kwargs):
         """
         Create and return a `User` with superuser (admin)
         permissions.
