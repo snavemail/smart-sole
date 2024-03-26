@@ -18,4 +18,7 @@ class Sensor(AbstractModel):
     objects = SensorManager()
 
     def __str__(self):
-        return f"{self.sensor_id} - {self.timestamp}"
+        return f"Step: {self.step_number} - Id: {self.sensor_id}"
+
+    class Meta:
+        db_table = "smartsole_sensor"

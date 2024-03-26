@@ -17,4 +17,4 @@ class GaitTest(AbstractModel):
         return self.name
 
     class Meta:
-        db_table = "gait_test"
+        db_table = "smartsole_gaittest"
