@@ -14,15 +14,17 @@ class SensorSerializer(AbstractSerializer):
         queryset=GaitTest.objects.all(), slug_field="public_id"
     )
 
-    def validate_post(self, value):
+    def validate_gaittest(self, value):
         if self.instance:
-            return self.instance.post
+            return self.instance.gaittest
         return value
+
+    def update(self, instance, validated_data):
+        instance = super().update(instance, validated_data)
+        return instance
 
     def to_representation(self, instance):
         rep = super().to_representation(instance)
-        gaittest = User.objects.get_object_by_public_id(rep["gaittest"])
-        rep["gaittest"] = GaitTestSerializer(gaittest).data
         return rep
 
     class Meta:
