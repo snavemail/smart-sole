@@ -1,12 +1,12 @@
 :root {
   --background: #f1f1f1;
   --foreground: #1f1f1f;
-  --functional: #7d7e75; /* battleship gray */
+  --functional: #7d7e75;
   --functional-light: #d0cdcd;
-  --accent: #a64253; /* Redwood */
-  --accent-light: #b95062; /* Redwood */
-  --pop: #f78e69; /* Coral */
-  --pop-light: #f9a88b; /* Coral */
+  --accent: #a64253;
+  --accent-light: #b95062;
+  --pop: #f78e69;
+  --pop-light: #f9a88b;
   --error: #920011;
 
   /* --button-bg: #686666;
@@ -44,6 +44,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
   min-height: 100vh;
   background-color: var(--background);
 }
