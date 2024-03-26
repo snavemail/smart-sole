@@ -3,6 +3,7 @@ from django.http.response import Http404
 
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 
 from smartsole.abstract.viewsets import AbstractViewSet
 from smartsole.sensor.models import Sensor
@@ -16,7 +17,6 @@ class SensorViewSet(AbstractViewSet):
     serializer_class = SensorSerializer
 
     def get_queryset(self):
-        # May not need this
         if self.request.user.is_superuser:
             return Sensor.objects.all()
 

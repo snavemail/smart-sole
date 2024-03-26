@@ -3,7 +3,6 @@ from smartsole.abstract.models import AbstractModel, AbstractManager
 
 
 class GaitTestManager(AbstractManager):
-    print("GaitTestManager")
     pass
 
 
