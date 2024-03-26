@@ -1,4 +1,4 @@
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from smartsole.auth.permissions import UserPermission
 from smartsole.abstract.viewsets import AbstractViewSet
 from smartsole.gaittest.models import GaitTest
 from smartsole.gaittest.serializers import GaitTestSerializer
@@ -9,10 +9,17 @@ from rest_framework.response import Response
 class GaitTestViewSet(AbstractViewSet):
     http_method_names = ["get", "post", "put", "delete"]
     serializer_class = GaitTestSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = (UserPermission,)
 
     def get_queryset(self):
-        return GaitTest.objects.all()
+        queryset = GaitTest.objects.all()
+        if self.request.user.is_authenticated:
+            user_gaittests = self.request.user.gaittest_set.all()
+            queryset = queryset.filter(pk__in=[gt.pk for gt in user_gaittests])
+        elif not self.request.user.is_superuser:
+            queryset = queryset.none()
+
+        return queryset
 
     def get_object(self):
         obj = GaitTest.objects.get_object_by_public_id(self.kwargs["pk"])
