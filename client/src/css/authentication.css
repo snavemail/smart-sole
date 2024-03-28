@@ -1,0 +1,175 @@
+/* Add this CSS to your component's stylesheet or to a global stylesheet */
+
+.form-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+  width: 100%;
+}
+
+label {
+  display: block;
+}
+
+input[type='email'],
+input[type='password'],
+input[type='text'] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  outline: none;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+input[type='email']:focus,
+input[type='password']:focus,
+input[type='text']:focus {
+  border-color: var(--pop);
+  border-width: 3px;
+}
+
+input::placeholder {
+  color: var(--foreground);
+  opacity: 0.5;
+}
+
+.form-group .icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+}
+
+.btn-auth {
+  width: 100%;
+  padding: 10px;
+  height: 38px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--pop);
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  transition: background-color 0.3s ease;
+}
+
+.btn-auth:hover {
+  background-color: var(--pop-light);
+}
+
+.alert {
+  color: var(--error);
+  margin-top: 20px;
+}
+
+.input-error[type='email'],
+.input-error[type='password'],
+.input-error[type='text'],
+.form-group > .input-error {
+  border: 2px solid var(--error);
+}
+
+.input-error[type='email']:focus,
+.input-error[type='password']:focus,
+.input-error[type='text']:focus,
+.form-group > .input-error:focus {
+  border: 2px solid var(--error);
+}
+
+.btn-auth[disabled] {
+  cursor: not-allowed; /* Change cursor to not-allowed when disabled */
+  opacity: 0.6; /* Reduce opacity to make it look faded */
+}
+
+.btn-auth[disabled]:hover {
+  background-color: var(--pop); /* Keep the original background color */
+}
+
+form > h1 {
+  font-size: 36px;
+  text-align: start;
+}
+
+.remember-forgot {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14.5px;
+  margin: 15px 0 15px;
+}
+
+.remember-forgot label input {
+  accent-color: #fff;
+  margin-right: 4px;
+}
+
+.remember-forgot a {
+  color: var(--foreground);
+  text-decoration: none;
+}
+
+.remember-forgot a:hover {
+  text-decoration: underline;
+}
+
+.register-link {
+  font-size: 14.5px;
+  text-align: center;
+  margin: 20px 0 15px;
+}
+
+.register-link a {
+  color: var(--pop);
+  text-decoration: none;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  color: var(--error);
+  font-size: 14px;
+  padding-left: 0;
+}
+
+.password-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  outline: none;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  margin: 5px 0;
+}
+
+.password-wrapper:focus-within {
+  border-color: var(--pop);
+  border-width: 3px;
+}
+
+.input-error:focus-within {
+  border-color: var(--error);
+  border-width: 1px;
+}
+
+.password-wrapper > input {
+  border: none;
+  margin: 0;
+}
+
+.password-wrapper > button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.password-wrapper > button:focus {
+  outline: none;
+}

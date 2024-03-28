@@ -37,11 +37,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <h1 className="h1-bold">This is text</h1>
       <body
         className={`${zenKakuGothicNew.variable} ${inter.variable} ${spaceGrotesk.variable} `}
       >
-        {children}
+        <div className="pt-20">{children}</div>
       </body>
     </html>
   );

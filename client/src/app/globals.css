@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --background: #f1f1f1;
+  --foreground: #1f1f1f;
+  --functional: #7d7e75;
+  --functional-light: #d0cdcd;
+  --accent: #a64253;
+  --accent-light: #b95062;
+  --pop: #f78e69;
+  --pop-light: #f9a88b;
+  --error: #920011;
+  --navbar-height: 70px;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family:
+    Zen Kaku Gothic New,
+    sans-serif;
+}
