@@ -1,14 +1,16 @@
 /* Navbar styles */
 .navbar {
-  background-color: #333;
+  background: none;
   color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 50px;
+  padding: 0 16px;
   position: sticky;
   height: var(--navbar-height);
   top: 0;
+  width: 1230px;
+  min-width: 1230px;
 }
 
 .navbar-brand a {

@@ -53,7 +53,7 @@ export default function Navbar() {
           </div>
           {dropdownOpen && (
             <div className='dropdown-menu'>
-              <a href='/profile'>Profile</a>
+              <a href='/settings'>Settings</a>
               <button onClick={handleLogout}>Logout</button>
             </div>
           )}

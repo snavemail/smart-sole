@@ -7,8 +7,9 @@ import UnAuthRoute from './routes/UnAuthRoute';
 import Registration from './pages/AuthPages/Registration';
 import Login from './pages/AuthPages/Login';
 import Home from './pages/Home';
-import LandingPage from './pages/LandingPage/LandingPage';
+import LandingPage from './pages/LandingPage';
 import Layout from './components/Layout';
+import Profile from './pages/Profile';
 
 function App() {
   const { isConnected } = useBle();
@@ -45,6 +46,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/settings'
+            element={
+              <ProtectedRoute>
+                <Profile />
               </ProtectedRoute>
             }
           />

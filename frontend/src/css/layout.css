@@ -2,7 +2,31 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  min-height: calc(100vh - var(--navbar-height));
+  min-height: calc(100vh - var(--navbar-height) - 128px);
   overflow: auto;
+  padding: 0 16px;
+  width: 1230px;
+  min-width: 1230px;
+  margin: 0px auto;
+  padding: 64px 0;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: var(--foreground);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+@media screen and (max-width: 1294px) {
+  .navbar,
+  .main-wrapper {
+    width: 100%;
+    min-width: 100%;
+    padding: 0 32px;
+  }
 }
